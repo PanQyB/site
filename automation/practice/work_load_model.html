@@ -1,0 +1,445 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
+<head>
+    <title>Про Тестинг - Автоматизированное Тестирование - Модель нагрузки, как отправная точка при тестировании производительности</title>
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'/>
+    <meta content='модель нагрузки нагрузочное тестирование тесты производительности базовые точки стресс стабильность' name='Keywords'/>
+    <meta content='Нагрузочное тестирование. Описание процесса разработки модели нагрузки, как отправной точки при тестировании производительности. Примеры и описание различных моделей нагрузки.' name='Description'/>
+    <META content='all' name='robots'/>
+    <META content='General' name='rating'/>
+    <META content='GLOBAL' name='distribution'/>
+    <META content='Testing' name='Classification'/>
+    <META content='no-cache' http-equiv='Pragma'/>
+    <META content='1' http-equiv='Expires'/>
+    <META content='Alexey Bulat' name='author'/>
+    <meta name="verify-v1" content="nwLyVjttOGfRojFpAPHmfd1PBGuIk53xCahRkVSccxY=" />
+    <link rel="stylesheet" href="../../protesting.css" type="text/css" media="screen" />
+    <script language="JavaScript" src="../../js/bookmark.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        window.___gcfg = {
+        lang: 'ru-RU',
+        parsetags: 'onload'
+        };
+        (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+</head>
+<body>
+<div id="fb-root"></div>
+<div id="container">
+<div id="sitename">
+    <a name="top"></a>
+    <table border="0" width="100%">
+        <tr>
+            <td align="left" valign="top">
+                <a href="../../index.html" title="Про Тестинг"><img src="../../img/protesting_logo.png" alt="Про Тестинг: обеспечение качества, тестирование, автоматизация" border="0" /></a>
+            </td>
+            <td align="right" valign="middle">
+                <noindex>
+                    <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <ins class="adsbygoogle"
+                         style="display:inline-block;width:728px;height:90px"
+                         data-ad-client="pub-6596919741211198"
+                         data-ad-slot="6694292302"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </noindex>
+            </td>
+        </tr>
+    </table>
+</div>
+<div id="mainmenu">
+    <ul>
+        <li><a href="../../index.html">Главная</a></li>
+        <li><a href="../../qa/index.html">Обеспечение&nbsp;Качества</a></li>
+        <li><a href="../../testing/index.html">Тестирование</a></li>
+        <li><a class="current" href="../index.html">Автоматизация</a></li>
+        <li><a href="../../service/index.html">Сервис&nbsp;и&nbsp;Услуги</a>
+        <li><a href="../../contact/index.html">Контакт</a></li>
+        <li><a href="../../news/index.html">Новости</a></li>
+    </ul>
+</div>
+<div id="followme">
+    <ul>
+        <li><a rel="external nofollow" target="_blank" href="http://twitter.com/ProTesting_RU"><img src="../../img/icons/twitter_1.png" width="36" height="36" title="Следовать за нами в twitter"alt="Twitter" border="0"/></a></li>
+        <li><a rel="external nofollow" target="_blank" href="http://pro-testing.blogspot.com/feeds/posts/default"><img src="../../img/icons/rss_1.png" width="36" height="36" title="RSS Atom feed" alt="Atom" border="0"/></a></li>
+        <li><a rel="external nofollow" target="_blank" href="http://pro-testing.blogspot.com/"><img src="../../img/icons/blogger_1.png" width="36" height="36" title="Наш блог" alt="Blog" border="0"/></a></li>
+    </ul>
+    <g:plusone align="right"></g:plusone>
+    <div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+</div>
+<div id="wrap">
+<div id="leftside">
+    <h1>Автоматизация тестирования ПО</h1>
+    <p>
+        <a class="nav" href="../index.html">Основные понятия</a>
+        <a class="nav" href="../performance.html">Нагрузочное Тестирование</a>
+        <a class="nav" href="../functional.html">Автоматизация функционального тестирования</a>
+    </p>
+    <p>
+        <a class="nav" href="index.html">Практикум</a>
+        <a class="nav sub" href="automation_from_scratch.html">Пишем систему автоматизации тестов "с нуля"</a>
+        <a class="nav sub" href="pageobject_pattern.html">PageObjects pattern</a>
+        <a class="nav sub" href="pageobject_selenium.html">PageObjects pattern + Selenium (Java)</a>
+        <a class="nav sub" href="static_resources.html">Работа со статическими ресурсами</a>
+        <a class="nav sub" href="start_selenium_server.html">Запуск Selenium Server</a>
+        <a class="nav sub active" href="work_load_model.html" title="Модель нагрузки, как отправная точка при тестировании производительности">Модель нагрузки, как отправная точка при тестировании...</a>
+        <a class="nav sub" href="test_stand_configuration.html" title="Конфигурация тестового стенда для нагрузочного тестирования">Конфигурация тестового стенда для нагрузочного тестирования</a>
+        <a class="nav sub" href="load_scripts_writing.html" title="Разработка скриптов для нагрузочного тестирования">Создание скриптов для нагрузочного тестирования</a>
+        <a class="nav sub" href="javatestrunner.html" title="Java Test Runner">Запуск скриптов: Java Test Runner</a>
+        <a class="nav sub" href="atfwk.html" title="Automation Test Framework (ATFwk)">Automation Test Framework (ATFwk)</a>
+        <a class="nav sub" href="atfwk.html" title="Automation Test Framework (ATFwk)">Automation Test Framework (ATFwk)</a>
+    </p>
+</div>
+<div id="rightside">
+    <noindex>
+        <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- Большой вертикаль - 160x600 -->
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:160px;height:600px"
+             data-ad-client="ca-pub-6596919741211198"
+             data-ad-slot="9317658806"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </noindex>
+</div>
+<div id="searchpanel">
+    <form action="http://www.protesting.ru/searchresult.html" id="cse-search-box">
+        <input type="hidden" name="cx" value="partner-pub-6596919741211198:2p1g8mczggq" />
+        <input type="hidden" name="cof" value="FORID:10" />
+        <input type="hidden" name="ie" value="UTF-8" />
+        <input class="searchbox" type="text" name="q" size="50" onblur="if (q.value == '') {q.style.background = '#FFFFFF url(http://www.protesting.ru/img/search-logo.PNG) left no-repeat';}" onfocus="q.style.background = '#ffffff'; "/>
+        <input class="searchbutton" type="submit" name="sa" value="&#x041f;&#x043e;&#x0438;&#x0441;&#x043a;" />
+    </form>
+</div>
+<div id="content">
+<div id="bookmark">
+    <div id="addBookmarkContainer"><a id="bookmarkLink">&nbsp;►&nbsp;в&nbsp;закладки&nbsp;&nbsp;</a></div>
+</div>
+<p class="broadcast">Раздел: <a href="../index.html">Автоматизация</a>&nbsp;&gt; <a href="index.html">Практикум</a>&nbsp;&gt; Модель нагрузки, как отправная точка при тестировании производительности</p>
+<h1>Модель нагрузки, как отправная точка при тестировании производительности</h1>
+<br/>
+<ol>
+    <li><a href="work_load_model.html#ent">Введение</a></li>
+    <li><a href="work_load_model.html#perf">Что же такое нагрузочное тестирование?</a></li>
+    <li><a href="work_load_model.html#req0">Анализ требований</a>
+        <ul>
+            <li><a href="work_load_model.html#req1">Анализ требований в зависимости от типа проекта</a></li>
+        </ul>
+    </li>
+    <li><a href="work_load_model.html#user">Анализ целевой аудитории</a></li>
+    <li><a href="work_load_model.html#base">Определение базового профиля нагрузки</a></li>
+    <li><a href="work_load_model.html#mod0">Разработка моделей нагрузки</a>
+        <ul>
+            <li><a href="work_load_model.html#mod1">Модель тестирования производительности</a></li>
+            <li><a href="work_load_model.html#mod2">Модель стрессового тестирования</a></li>
+            <li><a href="work_load_model.html#mod3">Модель объемного тестирования</a></li>
+            <li><a href="work_load_model.html#mod4">Модель тестирования стабильности или надежности</a></li>
+        </ul>
+    </li>
+    <li><a href="work_load_model.html#sum">Выводы</a></li>
+    <li><a href="work_load_model.html#lit">Литература</a></li>
+</ol>
+<br/>
+<a name="ent"></a><h2>Введение</h2>
+<p>В настоящее время, с постоянно растущим числом интернет пользователей и пользователей ПК в общем, серьезно встает задача создания систем способных работать под колоссальными нагрузками без видимых замедлений и сбоев.</p>
+<p>Любого рода проблемы связанные с плохой производительностью могут стать причиной отказа клиентов от использования Вашего программного обеспечения, даже если функционально оно их устраивало. В связи с этим, проведение качественного нагрузочного тестирования должно стать обязательным, для обеспечения стабильности работы ваших приложений.</p>
+<br/>
+<a name="perf"></a><h2>Что же такое нагрузочное тестирование?</h2>
+<p>Нагрузочное тестирование или тестирование производительности - это автоматизированное тестирование, имитирующее работу определенного количества бизнес пользователей на каком либо общем (разделяемом ими) ресурсе.</p>
+<p>Основные <a href="../../testing/types/loadtesttypes.html">виды нагрузочных тестов</a>:</p>
+<ul>
+    <li/>Тестирование производительности (Performance Testing)
+    <li/>Стрессовое тестирование (Stress testing)
+    <li/>Объемное тестирование (Volume Testing)
+    <li/>Тестирование стабильности или надежности (Stability or Reliability Testing)
+</ul>
+<p>Говоря ранее о качественном нагрузочном тестировании, я имел ввиду проведение полного цикла работ:</p>
+<ul>
+    <li><strong>разработка моделей нагрузки</strong></li>
+    <li><a href="test_stand_configuration.html">конфигурация тестового стенда</a></li>
+    <li><a href="load_scripts_writing.html">разработку скриптов</a></li>
+    <li/>проведение тестирования
+    <li/>анализ результатов
+</ul>
+<p>Далее в статье речь пойдет преимущественно о первом и на мой взгляд самом важном этапе – о разработке <b>моделей нагрузки</b> (<b>Work Load Model</b>).</p>
+<p class="remark"><b>Примечание</b>: <br/>Согласно некоторым данным этот этап может занимать до 50% времени по нагрузочному тестированию.</p>
+<p>Разобьем работу над моделью нагрузки на несколько частей и определим, что необходимо будет делать на каждой из них:</p>
+<ul>
+    <li/>анализ требований
+    <li/>анализ целевой аудитории
+    <li/>определение базового профиля нагрузки
+    <li/>разработка моделей нагрузки
+</ul>
+<p>А теперь более подробно рассмотрим каждый пункт, шаг за шагом.</p>
+<p class="linktop"><a href="work_load_model.html#top" rel="external nofollow">Наверх</a></p>
+<a name="req0"></a><h2>Анализ требований</h2>
+<p>При анализе требований основной упор необходимо сделать на определение основных критериев успешности проведенных тестов. Для этого Вам необходимо будет выделить следующие характеристики:</p>
+<ul>
+    <li><b>Время отклика</b> (время необходимое для открытия страницы или получения ожидаемого результата)</li>
+    <li><b>Интенсивность</b> (число запросов в секунду – (Qps)</li>
+    <li><b>Используемые ресурсы</b> (загрузка процессора, кол-во используемой памяти, дисковое и сетевой I/O)</li>
+    <li><b>Максимальное количество пользователей</b> (определяет число пользователей, способных работать с системой в условиях заданной конфигурации)</li>
+</ul>
+<p>А также некоторые метрики связанные с работой бизнес сценариев (например, количество бизнес операций в единицу времени, время выполнения бизнес операции и т.д.)</p>
+<p>Заданные в требованиях характеристики, будут являться <strong>базовыми  нагрузочными точками</strong> тестируемого приложения. Все получаемые результаты будут сравниваться с ними для принятия решения о завершении тестирования либо дальнейшем профилировании производительности.</p>
+<p class="remark"><b>Примечание</b>: <br/>Основной проблемой при анализе требований будет являться их отсутствие! В связи с тем, что не всегда наши бизнес аналитики или люди ответственные за написание требований по производительности реально представляют как система должна работать под нагрузкой, какие именно требования должны быть предоставлены, очень часто цифры берутся просто «с потолка», поэтому нам приходится не только выделять имеющиеся требования, но и проводить их глубокий анализ на предмет их корректности.</p>
+<p class="remark"><b>Примечание</b>: <br/>В случае, когда требования заданы не полностью, базовая нагрузочная точка может быть рассчитана по имеющимся данным (см. <a target="_blank" href="../load/loadpoint.html">расчет нагрузочных точек</a>), при условии наличия необходимых характеристик.</p>
+<p class="remark"><b>Примечание</b>: <br/>Характеристика “Максимальное количество пользователей” на самом деле является малоинформативной, в случае если для тестирования нам необходимо будет работать с несколькими группами пользователей. Поэтому крайне важно будет знать более менее точное количество пользователей в каждой группе.</p>
+<a name="req1"></a><h3>Анализ требований в зависимости от типа проекта</h3>
+<p>При анализе требований необходимо учесть разрабатывается ли новое (<b>startup project</b>) или же проект направлен на профилирование нагрузки для уже находящегося в эксплуатации приложения (<b>profiling project</b>).</p>
+<p>Рассмотрим на основании чего разрабатываются требования по производительности в зависимости от типа проекта.</p>
+<p>Для startup проектов:</p>
+<ul>
+    <li/>анализ общепринятых критериев производительности
+    <li/>анализ производительности конкурирующих приложений
+    <li/>анализ экспертного мнения разработчиков, системных  и сетевых администраторов, администраторов баз данных и инженеров по нагрузочному тестированию.
+    <li/>анализ ожиданий целевых пользователей (групп пользователей)
+</ul>
+<p>Для profiling проектов:</p>
+<ul>
+    <li/>анализ общепринятых критериев производительности
+    <li/>анализ производительности конкурирующих приложений
+    <li/>анализ производительности эксплуатируемой версии приложения, с целью определения требующих профилирования функций, процессов, операций и т.д.
+    <li/>анализ экспертного мнения разработчиков, системных  администраторов и администраторов баз данных, инженеров по нагрузочному тестированию.
+    <li/>анализ мнения целевых пользователей (групп пользователей)
+</ul>
+<p>И уже после получения всех данных из всех источников можно получить более менее точные требования по производительности для тестируемого приложения.</p>
+<p class="remark"><b>Примечание</b>: <br/>В случае, если подобный анализ “имел место быть”, и в документации по проекту четко описаны все требования, то можно считать, что вам повезло. Так как в противном случае часть работы по разработке требований может лечь на Ваши плечи и будет включено во время отведенное на тестирование, которого и без того обычно не хватает.</p>
+<p class="linktop"><a href="work_load_model.html#top" rel="external nofollow">Наверх</a></p>
+<a name="user"></a><h2>Анализ целевой аудитории</h2>
+<p>Общение непосредственно с пользователями, наблюдение за их действиями, помогает нам более точно понять как будет происходить работа с ПО, какие части приложения наиболее критичны и требуют особого внимания.</p>
+<p class="remark"><b>Примечание</b>: <br/>В случае, если тестируемая система уже находится в эксплуатации, пользовательские сценарии и распределенее запросов в течении дня, можно получить проанализировав логи  приложения и сервера.</p>
+<p>В результате мы получим:</p>
+<ul>
+    <li/>Четко выделенные группы пользователей (например, администраторы, операторы, зарегистрированные клиенты, новые пользователи и т.д.)
+    <li/>Описание сценариев тестирования, на основе реального поведения  пользователей из каждой группы.
+    <li/>График распределение выполнения бизнес операций в течении дня.
+</ul>
+<p class="remark"><b>Например</b>: <br/>Утром операторы проверяют журналы посещения, обрабатывают сообщения клиентов, после обеда вводят новые товары в базу, и в конце рабочего дня снова анализируют журналы и сообщения. Значит основная нагрузка на журналы посещения и базы сообщений будет в начале и в конце рабочего дня.</p>
+<p class="linktop"><a href="work_load_model.html#top" rel="external nofollow">Наверх</a></p>
+<a name="base"></a><h2>Определение базового профиля нагрузки</h2>
+<p>Выделив, на предыдущем шаге группы пользователей, бизнес сценарии, требования к системе можем приступить к созданию профиля нагрузки – набор операций и интенсивность их выполнения для каждой пользовательской группы.</p>
+<p>Зная количество пользователей в каждой группе, мы должны будем распределить их для выполнения  требуемых операций, сохранив необходимую интенсивность.</p>
+<p><b>Например</b>:</p>
+<p>В группе “Администраторы” работает 10 админов. Они выполняют 2 основные операции - “добавить пользователя” и “забанить пользователя”.</p>
+<p>Распределим выполнение операций следующим образом: 5 админов выполняют операцию добавления и 5 забанивают пользователей. Проведем перерасчет интенсивности выполнения операций:</p>
+<p>В течении дня 10 администраторов добавляют 240 пользователей. Значит, интенсивность выполнения операции добавления для 1 администратора = 1 операция в час. Но в нашем случае только 5 админов будут выполнять операцию добавления, значит нам необходимо увеличить интенсивность так, чтобы количество добавленных пользователей осталось прежним. Итого, мы получим, что выполняя по 2 операции в час, 5 админов будут добавлять те же 240 пользователей. Проведя аналогичный перерасчет интенсивности для операции “забанить пользователя”, мы получим профиль нагрузки для группы Администраторы:</p>
+<table border="1" cellpadding="3" cellspacing="0">
+    <tr>
+        <th>группа</th>
+        <th>кол-во юзеров</th>
+        <th>операция</th>
+        <th>интенсивность опер./час</th>
+    </tr>
+    <tr>
+        <td>админы	</td>
+        <td>5</td>
+        <td>добавить пользователя</td>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>админы</td>
+        <td>5</td>
+        <td>забанить пользователя</td>
+        <td>5</td>
+    </tr>
+</table>
+<br/>
+<p>Проведя аналогичный перерасчет для каждой группы пользователей, мы получим небольшую сводную таблицу со списком операций и интенсивностью их выполнения:</p>
+<table border="1" cellpadding="3" cellspacing="0">
+    <tr>
+        <th>группа</th>
+        <th>кол-во юзеров</th>
+        <th>операция</th>
+        <th>интенсивность опер./сек</th>
+    </tr>
+    <tr>
+        <td>админы	</td>
+        <td>Z</td>
+        <td>добавить пользователя</td>
+        <td>N</td>
+    </tr>
+    <tr>
+        <td>админы</td>
+        <td>Z</td>
+        <td>забанить пользователя</td>
+        <td>N</td>
+    </tr>
+    <tr>
+        <td>...</td>
+    </tr>
+    <tr>
+        <td>покупатели	</td>
+        <td>Z</td>
+        <td>вход/выход в систему</td>
+        <td>N</td>
+    </tr>
+    <tr>
+        <td>покупатели</td>
+        <td>Z</td>
+        <td>поиск товара</td>
+        <td>N</td>
+    </tr>
+    <tr>
+        <td>покупатели	</td>
+        <td>Z</td>
+        <td>покупка товара</td>
+        <td>N</td>
+    </tr>
+    <tr>
+        <td>...</td>
+    </tr>
+    <tr>
+        <td>продавцы</td>
+        <td>Z</td>
+        <td>просмотр посещения</td>
+        <td>N</td>
+    </tr>
+    <tr>
+        <td>продавцы</td>
+        <td>Z</td>
+        <td>добавление/удаление товара</td>
+        <td>N</td>
+    </tr>
+</table>
+<br/>
+<p>Именно это таблица и будет являться полным <strong>базовым профилем нагрузки</strong> (<b>performance baseline profile</b>) для тестируемого приложения.</p>
+<p class="linktop"><a href="work_load_model.html#top" rel="external nofollow">Наверх</a></p>
+<a name="mod0"></a><h2>Разработка моделей нагрузки</h2>
+<p>В зависимости от вида проводимого тестирования и целей преследуемых им, нам придется разрабатывать разные модели нагрузки.</p>
+<p>Так разным может быть:</p>
+<ul>
+    <li/>количество пользователей и интенсивность запросов
+    <li/>старт самих пользователей: последовательно по одному, ступенчато группами или же запуск всех сразу.
+    <li/>длительность сценария от 10 минут до нескольких часов или даже дней.
+</ul>
+<p>Проще всего изменения проводить, варьируя параметрами в базовом профиле нагрузки и инструменте для тестирования производительности (например, в HP LoadRunner Controller).</p>
+<a name="mod1"></a><h3>Модель тестирования производительности</h3>
+<p>Постепенное увеличение нагрузки, добавляя новых пользователей с некоторым интервалом времени, позволяет нам определить:</p>
+<ul>
+    <li/>измерение времени выполнения выбранных операций при определенных интенсивностях выполнения этих операций
+    <li/>количество пользователей, способных одновременно работать с приложением
+    <li/>границы приемлемой производительности при увеличении нагрузки
+    <li/>производительность при разных нагрузках
+</ul>
+<a name="mod2"></a><h3>Модель стрессового тестирования</h3>
+<p>Увеличивая интенсивность операций выше пиковых (максимально разрешенных) значений либо увеличивая количество пользователей, до тех пор пока нагрузка не станет выше максимально допустимых значений, проверяем, что система работоспособна в условиях стресса. Далее, опустив нагрузку до средних значений, проверяем (способность системы к регенерации), что система вернулась к нормальному состоянию (основные нагрузочные характеристики не превышают базовые).</p>
+<a name="mod3"></a><h3>Модель объемного тестирования</h3>
+<p>Можно использовать ту же модель что и для тестирования производительности однако целью будет проверка работы системы с прогнозом на будущий рост объема данных. Следовательно одним и самым важным предусловием теста будет увеличение объемов базы данных приложения до требуемых размеров. Таким образом мы сможем проверить и оценить производительность, прогнозируя рост системы на год, два или три вперед.</p>
+<a name="mod4"></a><h3>Модель тестирования стабильности или надежности</h3>
+<p>Используя базовый нагрузочный профиль, запускаем тест длительностью от нескольких часов до нескольких дней, с целью выявления утечек памяти, перезапуска серверов и других аспектов влияющих на нагрузку.</p>
+<p class="linktop"><a href="work_load_model.html#top" rel="external nofollow">Наверх</a></p>
+<a name="sum"></a><h2>Выводы</h2>
+<p>Четкое следование всем вышеописанным инструкциям по разработке моделей нагрузки, позволит нам:</p>
+<ul>
+    <li/>провести дополнительный анализ и тестирование требований по производительности
+    <li/>уточнить параметры и характеристики производительности
+    <li/>получить более четкого представления о работе системы в целом
+    <li/>получить на выходе план предстоящих работ связанных с нагрузочным тестированием
+    <li/>определить предельный объем данных системы (с сохранением приемлемой производительности)
+    <li/>определить предельное количество пользователей (групп) системы (с сохранением приемлемой производительности)
+    <li/>определить ресурсоёмкие операции или сценарии (для дальнейшего профилирования системы)
+    <li/>отслеживать эффект от вводимых оптимизаций системы  при регулярных измерениях производительности, используя разработанные и проверенные модели нагрузки,
+</ul>
+<p>В итоге, имея на руках готовые разработанные модели нагрузки, можно смело переходить к следующему этапу подготовки к нагрузочному тестированию - конфигурации тестового стенда. Но это уже совершенно другая статья.</p>
+<p class="linktop"><a href="work_load_model.html#top" rel="external nofollow">Наверх</a></p>
+<a name="lit"></a><h2>Литература</h2>
+<ol>
+    <li>Технология нагрузочного тестирования информационных систем с большим объемом данных , Вячеслав Берзин, Oracle Magazine, [01.12.04]</li>
+    <li>Блог “Нагрузочное тестирование ПО” (<a target="_blank" href="http://ashirobokov.blogspot.com">http://ashirobokov.blogspot.com</a>), Андрей Широбоков</li>
+    <li>Сайт “ПроТестинг.RU” (<a href="../performance.html">http://www.protesting.ru/automation/performance.html</a>)</li>
+    <li>Performance Testing Guidance for Web Applications, J.D. Meier, Carlos Farre, Prashant Bansode, Scott Barber, and Dennis Rea; Microsoft Corporation; September 2007</li>
+</ol>
+<br/>
+<p><b>Автор</b>: Алексей Булат</p>
+<p><a target="_blank" href="http://alexeybulat.blogspot.com/2010/09/blog-post.html">Обсудить статью в блоге автора</a></p>
+<br/>
+<p class="linktop"><a href="work_load_model.html#top" rel="external nofollow">Наверх</a></p>
+</div>
+<div class="enddiv">&nbsp;
+    <noindex>
+        <script>
+            function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+            pageLanguage: 'ru',
+            includedLanguages: 'be,en,fr,de,pl,ru,es,uk',
+            multilanguagePage: true,
+            gaTrack: true,
+            gaId: 'UA-4297293-3'
+            });
+            }
+        </script><script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-4297293-3']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+    </noindex>
+</div>
+</div>
+</div>
+<div id="footer">
+    <table border="0" cellpadding="0" cellspacing="0" align="center">
+        <tr>
+            <td align="left">
+                <table class="inner" border="0" cellpadding="0" cellspacing="0" align="left">
+                    <tr><td align="left"><b>ОБРАТНАЯ СВЯЗЬ:</b></td></tr>
+                    <tr><td align="left">&nbsp;</td></tr>
+                    <tr><td align="left"><a href="../../contact/contact.html">Задать вопрос</a></td></tr>
+                    <tr><td align="left"><a href="../../contact/contact.html">Сообщить об ошибке</a></td></tr>
+                    <tr><td align="left"><a href="../../contact/contact.html">Публикация материалов</a></td></tr>
+                    <tr><td align="left"><a href="../../contact/link.html">Обмен ссылками</a></td></tr>
+                </table>
+            </td>
+            <td align="center"><img src="../../img/protesting125x125_3.gif" alt="Про Тестинг: тесты, тестирование и тестировщики программного обеспечения" width="100" height="100"/>
+                <br/>
+                <noindex>
+                    <script type="text/javascript">
+                        var d = new Date();
+                        document.write("&copy; 2008-" + d.getFullYear());
+                    </script>
+                </noindex>
+                <a href="../../index.html">ProTesting.ru</a></td>
+            <td align="right">
+                <table class="inner" border="0" cellpadding="0" cellspacing="0" align="right">
+                    <tr><td align="right"><b>УСЛУГИ:</b></td></tr>
+                    <tr><td align="right">&nbsp;</td></tr>
+                    <tr><td align="right"><a href="../../service/documentation.html">Подготовка&nbsp;документации</a></td></tr>
+                    <tr><td align="right"><a href="../../service/testing.html">Тестирование&nbsp;ПО</a></td></tr>
+                    <tr><td align="right"><a href="../../service/consulting.html">Консалтинг</a></td></tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <p align="left">
+        <!--LiveInternet counter--><script type="text/javascript"><!--
+    document.write("<a href='http://www.liveinternet.ru/click' "+
+                   "target=_blank><img src='http://counter.yadro.ru/hit?t17.5;r"+
+                   escape(document.referrer)+((typeof(screen)=="undefined")?"":
+                                              ";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+                                                                                       screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+                   ";h"+escape(document.title.substring(0,80))+";"+Math.random()+
+                   "' alt='' title='LiveInternet: показано число просмотров за 24"+
+                   " часа, посетителей за 24 часа и за сегодня' "+
+                   "border=0 width=88 height=31 align=middle/><\/a>")//--></script><!--/LiveInternet-->
+    </p>
+    <!-- begin of Top100 logo -->
+    <a href="http://top100.rambler.ru/home?id=1902383" target="_blank"><img src="http://top100-images.rambler.ru/top100/banner-88x31-rambler-black2.gif" alt="Rambler's Top100" width="88" height="31" border="0" /></a>
+    <!-- end of Top100 logo -->
+</div>
+<!-- begin of Top100 code -->
+<script id="top100Counter" type="text/javascript" src="http://counter.rambler.ru/top100.jcn?1902383"></script><noscript><img src="http://counter.rambler.ru/top100.cnt?1902383" alt="" width="1" height="1" border="0"/></noscript>
+<!-- end of Top100 code -->
+</body>
+</html>

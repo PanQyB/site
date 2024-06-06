@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
+<head>
+    <title>Про Тестинг - Обеспечение качества - Создание, использование и анализ метрик</title>
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'/>
+    <meta content='метрики обеспечение качество тестирование процесс баги тест кейсы задачи тесты test case bug task' name='Keywords'/>
+    <meta content='Обеспечение качества. Метрики для контроля за процессом тестирования. Советы по созданию, использованию и анализу QA метрик.' name='Description'/>
+    <META content='all' name='robots'/>
+    <META content='General' name='rating'/>
+    <META content='GLOBAL' name='distribution'/>
+    <META content='Testing' name='Classification'/>
+    <META content='no-cache' http-equiv='Pragma'/>
+    <META content='1' http-equiv='Expires'/>
+    <META content='Alexey Bulat' name='author'/>
+    <meta name="verify-v1" content="nwLyVjttOGfRojFpAPHmfd1PBGuIk53xCahRkVSccxY=" />
+    <link rel="stylesheet" href="../protesting.css" type="text/css" media="screen" />
+    <link rel='shortcut icon' href='../img/protesting_znak.ico' />
+    <script language="JavaScript" src="../js/bookmark.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        window.___gcfg = {
+        lang: 'ru-RU',
+        parsetags: 'onload'
+        };
+        (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+</head>
+<body>
+<div id="fb-root"></div>
+<div id="container">
+    <div id="sitename">
+        <a name="top"></a>
+        <table border="0" width="100%" cellpadding="0" cellspacing="0" align="left">
+            <tr>
+                <td align="left" valign="top">
+                    <a href="../index.html" title="Про Тестинг"><img src="../img/protesting_logo.png" alt="Про Тестинг: обеспечение качества, тестирование, автоматизация" border="0" /></a>
+                </td>
+                <td align="right" valign="middle">
+                    <noindex>
+                        <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <ins class="adsbygoogle"
+                             style="display:inline-block;width:728px;height:90px"
+                             data-ad-client="pub-6596919741211198"
+                             data-ad-slot="6694292302"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </noindex>
+</td>
+            </tr>
+        </table>
+    </div>
+    <div id="mainmenu">
+        <ul>
+            <li><a href="../index.html">Главная</a></li>
+            <li><a class="current" href="index.html">Обеспечение Качества</a></li>
+            <li><a href="../testing/index.html">Тестирование</a></li>
+            <li><a href="../automation/index.html">Автоматизация</a></li>
+            <li><a href="../service/index.html">Сервис&nbsp;и&nbsp;Услуги</a></li>
+            <li><a href="../contact/index.html">Контакт</a></li>
+            <li><a href="../news/index.html">Новости</a></li>
+        </ul>
+    </div>
+    <div id="followme">
+    <ul>
+        <li><a rel="external nofollow" target="_blank" href="http://twitter.com/ProTesting_RU"><img src="../img/icons/twitter_1.png" width="36" height="36" title="Следовать за нами в twitter"alt="Twitter" border="0"/></a></li>
+        <li><a rel="external nofollow" target="_blank" href="http://pro-testing.blogspot.com/feeds/posts/default"><img src="../img/icons/rss_1.png" width="36" height="36" title="RSS Atom feed" alt="Atom" border="0"/></a></li>
+        <li><a rel="external nofollow" target="_blank" href="http://pro-testing.blogspot.com/"><img src="../img/icons/blogger_1.png" width="36" height="36" title="Наш блог" alt="Blog" border="0"/></a></li>
+    </ul>
+    <g:plusone align="right"></g:plusone>
+    <div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+</div>
+    <div id="wrap">
+        <div id="leftside">
+            <h1>Обеспечение Качества</h1>
+            <p>
+                <a class="nav" href="index.html">Основные понятия</a>
+                <a class="nav" href="quality.html">Качество программного обеспечения</a>
+                <a class="nav" href="startqa.html">С чего начать обеспечение качества?</a>
+                <a class="nav" href="recommendations.html">Рекомендации по обеспечению качества</a>
+                <a class="nav active" href="metrics.html">Метрики по обеспечению качества</a>
+                <a class="nav" href="interview.html">Собеседование специалистов</a>
+            </p>
+            <p>
+                <a class="nav" href="articles.html">Статьи</a>
+            </p>
+        </div>
+        <div id="rightside">
+            <noindex>
+                <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- Большой вертикаль - 160x600 -->
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:160px;height:600px"
+                     data-ad-client="ca-pub-6596919741211198"
+                     data-ad-slot="9317658806"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </noindex>
+</div>
+        <div id="searchpanel">
+            <form action="http://www.protesting.ru/searchresult.html" id="cse-search-box">
+                <input type="hidden" name="cx" value="partner-pub-6596919741211198:2p1g8mczggq" />
+                <input type="hidden" name="cof" value="FORID:10" />
+                <input type="hidden" name="ie" value="UTF-8" />
+                <input class="searchbox" type="text" name="q" size="50" onblur="if (q.value == '') {q.style.background = '#FFFFFF url(http://www.protesting.ru/img/search-logo.PNG) left no-repeat';}" onfocus="q.style.background = '#ffffff'; "/>
+                <input class="searchbutton" type="submit" name="sa" value="&#x041f;&#x043e;&#x0438;&#x0441;&#x043a;" />
+            </form>
+        </div>
+        <div id="content">
+            <div id="bookmark">
+                <div id="addBookmarkContainer"><a id="bookmarkLink">&nbsp;►&nbsp;в&nbsp;закладки&nbsp;&nbsp;</a></div>
+            </div>
+            <p class="broadcast">Раздел: <a href="index.html">Обеспечение Качества</a>&nbsp;&gt; Метрики - создание, использование и анализ</p>
+            <h1>Метрики по обеспечению качества</h1>
+            <p>Согласно международному стандарту <a target="_blank" href="../documentation/info_isoiec14598_1_ed1_0_en.pdf">ISO 14598</a>:</p>
+            <blockquote><b>Метрика</b> - это количественный масштаб и метод, который может использоваться для измерения.</blockquote>
+            <p>От себя добавим, что <b>введение и использование метрик необходимо для улучшения контроля над процессом разработки,
+                а в частности над процессом тестирования</b>, который мы и будем рассматривать далее.</p>
+            <p><b>Цель контроля тестирования состоит в получении обратной связи и визуализации процесса тестирования</b>.
+                Необходимую для контроля информацию собирают (как в ручную, так и автоматически) и используют для оценки
+                состояния и принятия решений, таких как покрытие (например, покрытие требований или кода тестами) или критерии выхода (например, критерии окончания тестирования).
+                Метрики, также могут быть использованы для оценки прогресса выполнения запланированных работ и освоения бюджета</p>
+            <h2>Создание, использование и анализ метрик</h2>
+            <p>На наш взгляд, для большей наглядности имеет смысл сгруппировать метрики по типам сущностей, участвующих в обеспечении качества и тестировании программного обеспечения, а именно:</p>
+            <ol>
+                <li>Метрики по <a href="../testing/testcase.html">тестовым случаям (Test Cases)</a></li>
+                <li>Метрики по багам / дефектам</li>
+                <li>Метрики по задачам</li>
+            </ol>
+            <p>Давайте более детально разберем каждую из них:</p>
+            <h3>Метрики по тест кейсам</h3>
+            <table border="1" cellpadding="0" cellspacing="0" width="100%">
+                <tr class="intro" align="center" BGCOLOR="#CCCCCC"><td width="25%">Название</td><td>Описание</td></tr>
+                <tr><td>Passed/Failed Test Cases</td><td><p>Метрика показывает результаты прохождения тест кейсов, а именно отношение количества удачно пройденных к завершившимся с ошибками. В идеале, к концу проекта, количество провальных тестов стремиться к нулю</p></td></tr>
+                <tr><td>Not Run Test Cases</td><td><p>Метрика показывает количество тест кейсов, которые еще необходимо выполнить в данной фазе тестирования.  Имея данную информацию, мы можем проанализировать и выявить причины, по которым тесты не были проведены</p></td></tr>
+            </table>
+            <br/>
+            <h3>Метрики по багам</h3>
+            <table border="1" cellpadding="0" cellspacing="0" width="100%">
+                <tr class="intro" align="center" BGCOLOR="#CCCCCC"><td width="25%">Название</td><td>Описание</td></tr>
+                <tr><td>Open/Closed Bugs </td><td><p>Метрика показывает отношение количества открытых багов к закрытым (исправленным и перепроверенным) </p></td></tr>
+                <tr><td>Reopened/Closed Bugs</td><td><p>Метрика показывает отношение количества переоткрытых багов к закрытым (исправленным и перепроверенным)</p></td></tr>
+                <tr><td>Rejected/Opened Bugs</td><td><p>Метрика показывает отношение количества отклоненных багов к открытым</p></td></tr>
+                <tr><td>Bugs by Severity</td><td><p>Количество багов по серьезности</p></td></tr>
+                <tr><td>Bugs by Priority</td><td><p>Количество багов по приоритету</p></td></tr>
+            </table>
+            <br/>
+            <p>Хотим отметить, что метрики "Open/Closed Bugs", "Bugs by Severity" и "Bugs by Priority" хорошо визуализируют степень приближения продукта к достижению критериев качества по багам. Имея <a href="../testing/bugpriority.html#openbugsreq">требования к количеству открытых багов</a>, после каждой итерации тестирования мы сравниваем их с реальными данными, тем самым видя места, где нам нужно прибавить, для скорейшего достижения цели. </p>
+            <p>Метрики "Reopened/Closed Bugs" и "Rejected/Opened Bugs" направлены на отслеживание работы отдельных участников групп разработки и тестирования. </p>
+            <p><b>Пример первый</b>: <br/>
+                Допустим, мы имеем ситуацию, когда количество переоткрываемых после починки багов не уменьшается или даже растет. Это является сигналом к тому, что необходимо провести анализ причин, т.к. подобная ситуация может показать, что: </p>
+            <ol>
+                <li>Требования к функции можно трактовать по разному</li>
+                <li>Тестировщик не точно описал проблему</li>
+                <li>Некачественное поверхностное  решение проблемы (фикс бага)</li>
+            </ol>
+            <p><b>Второй пример</b> покажет для чего необходима метрика "Rejected/Opened Bugs": <br/>
+                Мы наблюдаем, что процент отклоненных (Rejected) багов очень большой. Это может значить: </p>
+            <ol>
+                <li>Требования к функции можно трактовать по разному</li>
+                <li>Тестировщик не точно описал проблему</li>
+                <li>Разработчик не желает исправлять допущенную им ошибку или не считает, что это на самом деле ошибка. (Эта проблема является прямым следствием 2-ой, возникшей из-за не точного описания)</li>
+            </ol>
+            <p>Все эти проблемы заметно дестабилизируют обстановку на проекте. Поэтому, при их возникновении,  рекомендуется провести короткую беседу с руководителями проектных групп, чтобы в последствии уменьшить количество переоткрытых и отклоненных дефектов. </p>
+            <h3>Метрики по задачам</h3>
+            <table border="1" cellpadding="0" cellspacing="0" width="100%">
+                <tr class="intro" align="center" BGCOLOR="#CCCCCC"><td width="25%">Название</td><td>Описание</td></tr>
+                <tr><td>Deployment tasks</td><td><p>Метрика показывает количество и результаты установок приложения. Процедура установки приложения была описана в статье <a target="_blank" href="http://alexeybulat.blogspot.com/2007/12/deployment-workflow.html">Процедура проведения установки новой версии ПО (Deployment WorkFlow)</a>. В случае, если количество отклоненных командой тестирования версий будет критически высоким, рекомендуется срочно проанализировать и выявить причины, а также в кротчайшие сроки решить имеющуюся проблему.</p></td></tr>
+                <tr><td>Still Opened Tasks</td><td><p>Метрика показывает количество все еще открытых задач. К окончанию проекта все задачи должны быть закрыты. Под задачами понимаем следующие виды работ: написание документации (архитектура, требования, планы), имплементация новых модули или изменение существующих по запросам на изменения, работы по настройке стендов, различные исследования и многое другое</p></td></tr>
+            </table>
+            <br/>
+            <p>Метрики по задачам могут быть разные, мы привели лишь две из них. Также интересна может быть метрика по времени выполнения задач и многие другие. </p>
+            <p class="center">*	*	*</p>
+            <p>В заключении хотим отметить, что наличие необходимых метрик и графиков, отражающих изменение состояния проекта в течении времени,
+                позволит вам улучшить не только процесс тестирования, но и разработки в целом, а также облегчит процедуру
+                проведения <a href="postproject.html">анализа выполненного проекта</a>, что позволит в дальнейшем не допускать прошлых ошибок.</p>
+            <br/>
+            <p>Автор: Алексей Булат</p>
+            <p class="linktop"><a href="metrics.html#top" rel="external nofollow">Наверх</a></p>
+        </div>
+        <div class="enddiv">&nbsp;
+    <noindex>
+        <script>
+            function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+            pageLanguage: 'ru',
+            includedLanguages: 'be,en,fr,de,pl,ru,es,uk',
+            multilanguagePage: true,
+            gaTrack: true,
+            gaId: 'UA-4297293-3'
+            });
+            }
+        </script><script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-4297293-3']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+    </noindex>
+</div>
+    </div>
+</div>
+<div id="footer">
+    <table border="0" cellpadding="0" cellspacing="0" align="center">
+        <tr>
+            <td align="left">
+                <table class="inner" border="0" cellpadding="0" cellspacing="0" align="left">
+                    <tr><td align="left"><b>ОБРАТНАЯ СВЯЗЬ:</b></td></tr>
+                    <tr><td align="left">&nbsp;</td></tr>
+                    <tr><td align="left"><a href="../contact/contact.html">Задать вопрос</a></td></tr>
+                    <tr><td align="left"><a href="../contact/contact.html">Сообщить об ошибке</a></td></tr>
+                    <tr><td align="left"><a href="../contact/contact.html">Публикация материалов</a></td></tr>
+                    <tr><td align="left"><a href="../contact/link.html">Обмен ссылками</a></td></tr>
+                </table>
+            </td>
+            <td align="center"><img src="../img/protesting125x125_3.gif" alt="Про Тестинг: тесты, тестирование и тестировщики программного обеспечения" width="100" height="100"/>
+                <br/>
+                <noindex>
+                    <script type="text/javascript">
+                        var d = new Date();
+                        document.write("&copy; 2008-" + d.getFullYear());
+                    </script>
+                </noindex>
+                <a href="../index.html">ProTesting.ru</a></td>
+            <td align="right">
+                <table class="inner" border="0" cellpadding="0" cellspacing="0" align="right">
+                    <tr><td align="right"><b>УСЛУГИ:</b></td></tr>
+                    <tr><td align="right">&nbsp;</td></tr>
+                    <tr><td align="right"><a href="../service/documentation.html">Подготовка&nbsp;документации</a></td></tr>
+                    <tr><td align="right"><a href="../service/testing.html">Тестирование&nbsp;ПО</a></td></tr>
+                    <tr><td align="right"><a href="../service/consulting.html">Консалтинг</a></td></tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <p align="left">
+        <!--LiveInternet counter--><script type="text/javascript"><!--
+document.write("<a href='http://www.liveinternet.ru/click' "+
+               "target=_blank><img src='http://counter.yadro.ru/hit?t17.5;r"+
+               escape(document.referrer)+((typeof(screen)=="undefined")?"":
+                                          ";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+                                                                                   screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+               ";h"+escape(document.title.substring(0,80))+";"+Math.random()+
+               "' alt='' title='LiveInternet: показано число просмотров за 24"+
+               " часа, посетителей за 24 часа и за сегодня' "+
+               "border=0 width=88 height=31 align=middle/><\/a>")//--></script><!--/LiveInternet-->
+    </p>
+    <!-- begin of Top100 logo -->
+    <a href="http://top100.rambler.ru/home?id=1902383" target="_blank"><img src="http://top100-images.rambler.ru/top100/banner-88x31-rambler-black2.gif" alt="Rambler's Top100" width="88" height="31" border="0" /></a>
+    <!-- end of Top100 logo -->
+</div>
+<!-- begin of Top100 code -->
+<script id="top100Counter" type="text/javascript" src="http://counter.rambler.ru/top100.jcn?1902383"></script><noscript><img src="http://counter.rambler.ru/top100.cnt?1902383" alt="" width="1" height="1" border="0"/></noscript>
+<!-- end of Top100 code -->
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
+<head>
+    <title>Про Тестинг - Тестирование - Виды Тестирования ПО - Тестирование на отказ и восстановление</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+    <meta content='nестирование отказ восстановление failover recovery testing' name='Keywords'/>
+    <meta content='Виды тестирования. Тестирование на отказ и восстановление. Описание, цели, условия и методики проведения, примеры сценариев.' name='Description'/>
+    <META content='all' name='robots'/>
+    <META content='General' name='rating'/>
+    <META content='GLOBAL' name='distribution'/>
+    <META content='Testing' name='Classification'/>
+    <META content='no-cache' http-equiv='Pragma'/>
+    <META content='1' http-equiv='Expires'/>
+    <META content='Alexey Bulat' name='author'/>
+    <meta name="verify-v1" content="nwLyVjttOGfRojFpAPHmfd1PBGuIk53xCahRkVSccxY=" />
+    <link rel="stylesheet" href="../../protesting.css" type="text/css" media="screen" />
+    <script language="JavaScript" src="../../js/bookmark.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        window.___gcfg = {
+        lang: 'ru-RU',
+        parsetags: 'onload'
+        };
+        (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+</head>
+<body>
+<div id="fb-root"></div>
+<div id="container">
+    <div id="sitename">
+        <a name="top"></a>
+        <table border="0" width="100%">
+            <tr>
+                <td align="left" valign="top">
+                    <a href="../../index.html" title="Про Тестинг"><img src="../../img/protesting_logo.png" alt="Про Тестинг: обеспечение качества, тестирование, автоматизация" border="0" /></a>
+                </td>
+                <td align="right" valign="middle">
+                    <noindex>
+                        <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <ins class="adsbygoogle"
+                             style="display:inline-block;width:728px;height:90px"
+                             data-ad-client="pub-6596919741211198"
+                             data-ad-slot="6694292302"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </noindex>
+</td>
+            </tr>
+        </table>
+    </div>
+    <div id="mainmenu">
+        <ul>
+            <li><a href="../../index.html">Главная</a></li>
+            <li><a href="../../qa/index.html">Обеспечение&nbsp;Качества</a></li>
+            <li><a class="current" href="../index.html">Тестирование</a></li>
+            <li><a href="../../automation/index.html">Автоматизация</a></li>
+            <li><a href="../../service/index.html">Сервис&nbsp;и&nbsp;Услуги</a></li>
+            <li><a href="../../contact/index.html">Контакт</a></li>
+            <li><a href="../../news/index.html">Новости</a></li>
+        </ul>
+    </div>
+    <div id="followme">
+    <ul>
+        <li><a rel="external nofollow" target="_blank" href="http://twitter.com/ProTesting_RU"><img src="../../img/icons/twitter_1.png" width="36" height="36" title="Следовать за нами в twitter"alt="Twitter" border="0"/></a></li>
+        <li><a rel="external nofollow" target="_blank" href="http://pro-testing.blogspot.com/feeds/posts/default"><img src="../../img/icons/rss_1.png" width="36" height="36" title="RSS Atom feed" alt="Atom" border="0"/></a></li>
+        <li><a rel="external nofollow" target="_blank" href="http://pro-testing.blogspot.com/"><img src="../../img/icons/blogger_1.png" width="36" height="36" title="Наш блог" alt="Blog" border="0"/></a></li>
+    </ul>
+    <g:plusone align="right"></g:plusone>
+    <div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+</div>
+    <div id="wrap">
+        <div id="leftside">
+            <h1>Тестирование</h1>
+            <p>
+                <a class="nav" href="../index.html">Основные понятия</a>
+                <a class="nav" href="../testtypes.html">Виды Тестирования</a>
+                <a class="nav sub" href="functional.html" title="Функциональное тестирование">Функциональное тестирование</a>
+                <a class="nav sub" href="security.html" title="Тестирование безопасности">Тестирование безопасности</a>
+                <a class="nav sub" href="interoperability.html" title="Тестирование взаимодействия">Тестирование взаимодействия</a>
+                <a class="nav sub" href="loadtesttypes.html" title="Нагрузочное тестирование">Нагрузочное тестирование</a>
+                <a class="nav sub" href="smoke.html" title="Дымовое тестирование">Дымовое тестирование</a>
+                <a class="nav sub" href="bvt.html" title="Тестирование сборки">Тестирование сборки</a>
+                <a class="nav sub" href="sanity.html" title="Санитарное тестирование или проверка согласованности/исправности">Санитарное тестирование</a>
+                <a class="nav sub" href="regression.html" title="Регрессионное тестирование">Регрессионное тестирование</a>
+                <a class="nav sub" href="installation.html" title="Тестирование Инсталляций">Тестирование установки</a>
+                <a class="nav sub" href="usability.html" title="Тестирование удобства пользования">Тестирование удобства использования</a>
+                <a class="nav sub active" href="failover.html" title="Failover and Recovery Testing">Тестирование на отказ и восстановление</a>
+                <a class="nav sub" href="configuration.html" title="Configuration Testing">Конфигурационное тестирование</a>
+                <a class="nav" href="../testlevels.html">Уровни Тестирования</a>
+                <a class="nav" href="../testdeliverables.html">Тестовые Артефакты</a>
+                <a class="nav" href="../testdesign.html">Техники Тест Дизайна</a>
+                <a class="nav" href="../testprocess.html">Процесс тестирования</a>
+                <a class="nav" href="../conditions.html">Условия проведения</a>
+            </p>
+        </div>
+        <div id="rightside">
+            <noindex>
+                <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- Большой вертикаль - 160x600 -->
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:160px;height:600px"
+                     data-ad-client="ca-pub-6596919741211198"
+                     data-ad-slot="9317658806"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </noindex>
+</div>
+        <div id="searchpanel">
+            <form action="http://www.protesting.ru/searchresult.html" id="cse-search-box">
+                <input type="hidden" name="cx" value="partner-pub-6596919741211198:2p1g8mczggq" />
+                <input type="hidden" name="cof" value="FORID:10" />
+                <input type="hidden" name="ie" value="UTF-8" />
+                <input class="searchbox" type="text" name="q" size="50" onblur="if (q.value == '') {q.style.background = '#FFFFFF url(http://www.protesting.ru/img/search-logo.PNG) left no-repeat';}" onfocus="q.style.background = '#ffffff'; "/>
+                <input class="searchbutton" type="submit" name="sa" value="&#x041f;&#x043e;&#x0438;&#x0441;&#x043a;" />
+            </form>
+        </div>
+        <div id="content">
+            <div id="bookmark">
+                <div id="addBookmarkContainer"><a id="bookmarkLink">&nbsp;►&nbsp;в&nbsp;закладки&nbsp;&nbsp;</a></div>
+            </div>
+            <p class="broadcast">Раздел: <a href="../index.html">Тестирование</a>&nbsp;&gt; <a href="../testtypes.html">Виды Тестирования</a>&nbsp;&gt; Тестирование на отказ и восстановление</p>
+            <h1>Тестирование на отказ и восстановление (Failover and Recovery Testing)</h1>
+            <p><strong>Тестирование на отказ и восстановление</strong> (<b>Failover and Recovery Testing</b>) проверяет тестируемый продукт с точки зрения способности  противостоять и успешно восстанавливаться после возможных сбоев, возникших в связи с ошибками программного обеспечения, отказами оборудования или проблемами связи (например, отказ сети).  <b>Целью</b> данного <b>вида тестирования</b> является проверка систем восстановления (или дублирующих основной функционал систем), которые, в случае возникновения сбоев, обеспечат сохранность и целостность данных тестируемого продукта.</p>
+            <p><b>Тестирование на отказ и восстановление</b> очень важно для систем, работающих по принципу “24x7”. Если Вы создаете продукт, который будет работать, например в интернете, то без проведения данного вида тестирования Вам просто не обойтись. Т.к. каждая минута простоя или потеря данных в случае отказа оборудования, может стоить вам денег, потери клиентов и репутации на рынке.</p>
+            <p><b>Методика</b> подобного <b>тестирования</b> заключается в симулировании различных условий сбоя и последующем изучении и оценке реакции защитных систем. В процессе подобных проверок выясняется, была ли достигнута требуемая степень восстановления системы после возникновения сбоя.</p>
+            <p>Для наглядности рассмотрим некоторые варианты подобного тестирования и общие методы их проведения. Объектом тестирования в большинстве случаев являются весьма вероятные эксплуатационные проблемы, такие как:</p>
+            <ul>
+                <li>Отказ электричества на компьютере-сервере</li>
+                <li>Отказ электричества на компьютере-клиенте</li>
+                <li>Незавершенные циклы обработки данных (прерывание работы фильтров данных, прерывание синхронизации).</li>
+                <li>Объявление или внесение в массивы данных невозможных или ошибочных элементов.</li>
+                <li>Отказ носителей данных.</li>
+            </ul>
+            <p>Данные ситуации могут быть воспроизведены, как только достигнута некоторая точка в разработке, когда все системы восстановления или дублирования готовы выполнять свои функции. Технически реализовать тесты можно следующими путями:</p>
+            <ul>
+                <li>Симулировать внезапный отказ электричества на компьютере (обесточить компьютер).</li>
+                <li>Симулировать потерю связи с сетью (выключить сетевой кабель, обесточить сетевое устройство)</li>
+                <li>Симулировать отказ носителей (обесточить внешний носитель данных)</li>
+                <li>Симулировать ситуацию наличия в системе неверных данных (специальный тестовый набор или база данных).</li>
+            </ul>
+            <p>При достижении соответствующих условий сбоя и по результатам работы систем восстановления, можно оценить продукт с точки зрения тестирования на отказ. Во всех вышеперечисленных случаях, по завершении процедур восстановления, должно быть достигнуто определенное требуемое состояние данных продукта:</p>
+            <ul>
+                <li>Потеря или порча данных в допустимых пределах.</li>
+                <li>Отчет или система отчетов с указанием процессов или транзакций, которые не были завершены в результате сбоя.</li>
+            </ul>
+            <p>Стоит заметить, что тестирование на отказ и восстановление – это весьма продукт-специфичное тестирование. Разработка тестовых сценариев должна производиться с учетом всех особенностей тестируемой системы. Принимая во внимание довольно жесткие методы воздействия, стоит также оценить целесообразность проведения данного вида тестирования для конкретного программного продукта.</p>
+            <br/>
+            <p>Автор: Сергей Косьяненко<p>
+            <p class="linktop"><a href="failover.html#top" rel="external nofollow">Наверх</a></p>
+        </div>
+        <div class="enddiv">&nbsp;
+    <noindex>
+        <script>
+            function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+            pageLanguage: 'ru',
+            includedLanguages: 'be,en,fr,de,pl,ru,es,uk',
+            multilanguagePage: true,
+            gaTrack: true,
+            gaId: 'UA-4297293-3'
+            });
+            }
+        </script><script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-4297293-3']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+    </noindex>
+</div>
+    </div>
+</div>
+<div id="footer">
+    <table border="0" cellpadding="0" cellspacing="0" align="center">
+        <tr>
+            <td align="left">
+                <table class="inner" border="0" cellpadding="0" cellspacing="0" align="left">
+                    <tr><td align="left"><b>ОБРАТНАЯ СВЯЗЬ:</b></td></tr>
+                    <tr><td align="left">&nbsp;</td></tr>
+                    <tr><td align="left"><a href="../../contact/contact.html">Задать вопрос</a></td></tr>
+                    <tr><td align="left"><a href="../../contact/contact.html">Сообщить об ошибке</a></td></tr>
+                    <tr><td align="left"><a href="../../contact/contact.html">Публикация матераилов</a></td></tr>
+                    <tr><td align="left"><a href="../../contact/link.html">Обмен ссылками</a></td></tr>
+                </table>
+            </td>
+            <td align="center"><img src="../../img/protesting125x125_3.gif" alt="Про Тестинг: тесты, тестирование и тестировщики программного обеспечения" width="100" height="100"><br/>&copy; 2008-2010 <a href="../../index.html">ProTesting.ru</a></td>
+            <td align="right">
+                <table class="inner" border="0" cellpadding="0" cellspacing="0" align="right">
+                    <tr><td align="right"><b>УСЛУГИ:</b></td></tr>
+                    <tr><td align="right">&nbsp;</td></tr>
+                    <tr><td align="right"><a href="../../service/documentation.html">Подготовка&nbsp;документации</a></td></tr>
+                    <tr><td align="right"><a href="../../service/testing.html">Тестирование&nbsp;ПО</a></tr>
+                    <tr><td align="right"><a href="../../service/consulting.html">Консалтинг</a></td></tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <p align="left">
+        <!--LiveInternet counter--><script type="text/javascript"><!--
+    document.write("<a href='http://www.liveinternet.ru/click' "+
+                   "target=_blank><img src='http://counter.yadro.ru/hit?t17.5;r"+
+                   escape(document.referrer)+((typeof(screen)=="undefined")?"":
+                                              ";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+                                                                                       screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+                   ";h"+escape(document.title.substring(0,80))+";"+Math.random()+
+                   "' alt='' title='LiveInternet: показано число просмотров за 24"+
+                   " часа, посетителей за 24 часа и за сегодня' "+
+                   "border=0 width=88 height=31 align=middle><\/a>")//--></script><!--/LiveInternet-->
+    </p>
+</div>
+</body>
+</html>

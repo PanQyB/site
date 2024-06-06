@@ -1,0 +1,421 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
+<head>
+    <title>Про Тестинг - Автоматизированное Тестирование - Основные аспекты создания скриптов для нагрузочного тестирования</title>
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'/>
+    <meta content='скрипты сценарии нагрузочное тестирование разработка тесты производительность' name='Keywords'/>
+    <meta content='Нагрузочное тестирование. Статья описывает основные нюансы, которые необходимо учесть при создании наборов скриптов для тестирования производительности' name='Description'/>
+    <META content='all' name='robots'/>
+    <META content='General' name='rating'/>
+    <META content='GLOBAL' name='distribution'/>
+    <META content='Testing' name='Classification'/>
+    <META content='no-cache' http-equiv='Pragma'/>
+    <META content='1' http-equiv='Expires'/>
+    <META content='Alexey Bulat' name='author'/>
+    <meta name="verify-v1" content="nwLyVjttOGfRojFpAPHmfd1PBGuIk53xCahRkVSccxY=" />
+    <link rel="stylesheet" href="../../protesting.css" type="text/css" media="screen" />
+    <script language="JavaScript" src="../../js/bookmark.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        window.___gcfg = {
+        lang: 'ru-RU',
+        parsetags: 'onload'
+        };
+        (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+</head>
+<body>
+<div id="fb-root"></div>
+<div id="container">
+<div id="sitename">
+    <a name="top"></a>
+    <table border="0" width="100%">
+        <tr>
+            <td align="left" valign="top">
+                <a href="../../index.html" title="Про Тестинг"><img src="../../img/protesting_logo.png" alt="Про Тестинг: обеспечение качества, тестирование, автоматизация" border="0" /></a>
+            </td>
+            <td align="right" valign="middle">
+                <noindex>
+                    <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <ins class="adsbygoogle"
+                         style="display:inline-block;width:728px;height:90px"
+                         data-ad-client="pub-6596919741211198"
+                         data-ad-slot="6694292302"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </noindex>
+            </td>
+        </tr>
+    </table>
+</div>
+<div id="mainmenu">
+    <ul>
+        <li><a href="../../index.html">Главная</a></li>
+        <li><a href="../../qa/index.html">Обеспечение&nbsp;Качества</a></li>
+        <li><a href="../../testing/index.html">Тестирование</a></li>
+        <li><a class="current" href="../index.html">Автоматизация</a></li>
+        <li><a href="../../service/index.html">Сервис&nbsp;и&nbsp;Услуги</a>
+        <li><a href="../../contact/index.html">Контакт</a></li>
+        <li><a href="../../news/index.html">Новости</a></li>
+    </ul>
+</div>
+<div id="followme">
+    <ul>
+        <li><a rel="external nofollow" target="_blank" href="http://twitter.com/ProTesting_RU"><img src="../../img/icons/twitter_1.png" width="36" height="36" title="Следовать за нами в twitter"alt="Twitter" border="0"/></a></li>
+        <li><a rel="external nofollow" target="_blank" href="http://pro-testing.blogspot.com/feeds/posts/default"><img src="../../img/icons/rss_1.png" width="36" height="36" title="RSS Atom feed" alt="Atom" border="0"/></a></li>
+        <li><a rel="external nofollow" target="_blank" href="http://pro-testing.blogspot.com/"><img src="../../img/icons/blogger_1.png" width="36" height="36" title="Наш блог" alt="Blog" border="0"/></a></li>
+    </ul>
+    <g:plusone align="right"></g:plusone>
+    <div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+</div>
+<div id="wrap">
+<div id="leftside">
+    <h1>Автоматизация тестирования ПО</h1>
+    <p>
+        <a class="nav" href="../index.html">Основные понятия</a>
+        <a class="nav" href="../performance.html">Нагрузочное Тестирование</a>
+        <a class="nav" href="../functional.html">Автоматизация функционального тестирования</a>
+    </p>
+    <p>
+        <a class="nav" href="index.html">Практикум</a>
+        <a class="nav sub" href="index.html">Пишем систему автоматизации тестов "с нуля"</a>
+        <a class="nav sub" href="pageobject_pattern.html">PageObjects pattern</a>
+        <a class="nav sub" href="pageobject_selenium.html">PageObjects pattern + Selenium (Java)</a>
+        <a class="nav sub" href="static_resources.html">Работа со статическими ресурсами</a>
+        <a class="nav sub" href="start_selenium_server.html">Запуск Selenium Server</a>
+        <a class="nav sub" href="work_load_model.html" title="Модель нагрузки, как отправная точка при тестировании производительности">Модель нагрузки, как отправная точка при тестировании...</a>
+        <a class="nav sub" href="test_stand_configuration.html" title="Конфигурация тестового стенда для нагрузочного тестирования">Конфигурация тестового стенда для нагрузочного тестирования</a>
+        <a class="nav sub active" href="load_scripts_writing.html" title="Основные аспекты создания скриптов для нагрузочного тестирования">Создание скриптов для нагрузочного тестирования</a>
+        <a class="nav sub" href="javatestrunner.html" title="Java Test Runner">Запуск скриптов: Java Test Runner</a>
+        <a class="nav sub" href="atfwk.html" title="Automation Test Framework (ATFwk)">Automation Test Framework (ATFwk)</a>
+    </p>
+</div>
+<div id="rightside">
+    <noindex>
+        <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- Большой вертикаль - 160x600 -->
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:160px;height:600px"
+             data-ad-client="ca-pub-6596919741211198"
+             data-ad-slot="9317658806"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </noindex>
+</div>
+<div id="searchpanel">
+    <form action="http://www.protesting.ru/searchresult.html" id="cse-search-box">
+        <input type="hidden" name="cx" value="partner-pub-6596919741211198:2p1g8mczggq" />
+        <input type="hidden" name="cof" value="FORID:10" />
+        <input type="hidden" name="ie" value="UTF-8" />
+        <input class="searchbox" type="text" name="q" size="50" onblur="if (q.value == '') {q.style.background = '#FFFFFF url(http://www.protesting.ru/img/search-logo.PNG) left no-repeat';}" onfocus="q.style.background = '#ffffff'; "/>
+        <input class="searchbutton" type="submit" name="sa" value="&#x041f;&#x043e;&#x0438;&#x0441;&#x043a;" />
+    </form>
+</div>
+<div id="content">
+<div id="bookmark">
+    <div id="addBookmarkContainer"><a id="bookmarkLink">&nbsp;►&nbsp;в&nbsp;закладки&nbsp;&nbsp;</a></div>
+</div>
+<p class="broadcast">Раздел: <a href="../index.html">Автоматизация</a>&nbsp;&gt; <a href="index.html">Практикум</a>&nbsp;&gt; Основные аспекты создания скриптов для нагрузочного тестирования</p>
+<h1>Основные аспекты создания скриптов для нагрузочного тестирования</h1>
+<br/>
+<div id="toc">
+    <ol>
+        <li><a href="load_scripts_writing.html#1">Введение</a></li>
+        <li><a href="load_scripts_writing.html#2">Стандартизация тестового набора для тестирования производительности</a>
+            <ol>
+                <li><a href="load_scripts_writing.html#2.1">Структура каталогов тестового набора</a></li>
+                <li><a href="load_scripts_writing.html#2.2">Архитектура тест скриптов</a></li>
+                <li><a href="load_scripts_writing.html#2.3">Соглашение об именовании</a>
+                    <ol>
+                        <li><a href="load_scripts_writing.html#2.3.1">Названия тест скриптов</a></li>
+                        <li><a href="load_scripts_writing.html#2.3.2">Названия параметров</a></li>
+                        <li><a href="load_scripts_writing.html#2.3.3">Название транзакций</a></li>
+                    </ol>
+                </li>
+            </ol>
+        </li>
+        <li><a href="load_scripts_writing.html#3">Порядок действий при разработке скриптов для тестирования производительности</a>
+            <ol>
+                <li><a href="load_scripts_writing.html#3.1">Подготовка</a></li>
+                <li><a href="load_scripts_writing.html#3.2">Создание и отладка</a></li>
+                <li><a href="load_scripts_writing.html#3.3">Хранение</a></li>
+            </ol>
+        </li>
+        <li><a href="load_scripts_writing.html#4">Конфигурация тестового набора для тестирования производительности</a></li>
+        <li><a href="load_scripts_writing.html#5">Вывод</a></li>
+        <li><a href="load_scripts_writing.html#6">Литература</a></li>
+    </ol>
+</div>
+<br/>
+<a name="1"></a>
+<h2>1. Введение</h2>
+<p>Напомним, что само по себе <strong>нагрузочное тестирование</strong> - это <strong>автоматизированное тестирование</strong>, а значит это разработка, отладка, контрольный запуск и анализ результатов, а не просто запись и запуск (Record & Playback). В данной статье мы постараемся рассмотреть <strong>основные аспекты создания набора тест скриптов для нагрузочного тестирования</strong>, не углубляясь в технические особенности инструментов, языков программирования и технологий. Итак приступим.</p>
+<p>Если мы хотим получить удобный для пользования и сопровождения <b>набор тестовых скриптов</b>, нам необходимо будет внедрить <a href="../../qa/startqa.html">приемы обеспечения качества: использование стандартов, шаблонов и инструкций</a>. Необходимо договориться об общем использовании одинаковой структуры каталогов, архитектуры скриптов, именовании функций, переменных, и транзакций. В итоге каждый участник группы, отвечающей за нагрузочное тестирование, будет знать архитектуру  тестового набора, а также без труда сможет прочитать и внести необходимые изменения в скрипт, написанный другим тестировщиком.</p>
+<br/>
+<a name="2"></a>
+<h2>2. Стандартизация тестового набора для тестирования производительности</h2>
+<p>Разрабатывая скрипты для нагрузочного тестирования, мы выполняем работу присущую программисту/разработчику, и поэтому должны следовать их правилам, выполняя все для обеспечения качества и надежности кода тестов. Очень часто для этого стоит провести консультации с разработчиками и с их помощью выработать <b>основные правила создания тестовых скриптов</b>.</p>
+<p>В любом случае, свое внимание стоит обратить на следующие аспекты:</p>
+<ol>
+    <li>Структура каталогов</li>
+    <li>Архитектура (структура) тест скриптов</li>
+    <li>Именование объектов</li>
+</ol>
+<a name="2.1"></a>
+<h3>2.1 Структура каталогов тестового набора</h3>
+<p>Наличие одинаковой структуры каталогов значительно облегчает работу (<a href="load_scripts_writing.html#lit1">[1] Страница 5</a>). Вы всегда будете знать, где и что находится. Вам не придется искать, где же находятся, к примеру, параметры для тестового набора, написанного другим тестировщиком. Предлагаем Вам следующую структуру каталогов:</p>
+<p class="center"><img src="../../img/perf_suite_dir.png" alt="Структура каталогов тестового набора"></p>
+<ul>
+    <li><b>parameters</b> - директорий глобальных параметров тестового сценария (более подробное описание глобальных параметров смотрите ниже в разделе "<a href="load_scripts_writing.html#2.3.2">название параметров</a>")</li>
+    <li><b>scripts</b> - директорий хранения тестовых скриптов</li>
+    <li><b>scenarios</b> - директорий хранения сценариев или тестовой модели</li>
+</ul>
+<a name="2.2"></a>
+<h3>2.2 Архитектура тест скриптов</h3>
+<p>Аналогично со структурой тест кейсов, скрипты для нагрузочного тестирования так же рекомендуется разделять на 3 части: precondition, test case action, postcondition. Данное разделение очень удобно, т.к. разные части тестов имеют разную частоту выполнения.</p>
+<p><b>Тестовые скрипты в HP LoadRunner</b> изначально разделены на 3 части:</p>
+<ul>
+    <li><b>Init</b> - используется для инициализации VUser, т.е. в него целесообразно помещать те части скрипта, которые не требуют постоянных повторений, такие как вход в тестируемую систему, конечно если мы не тестируем именно эту часть приложения. <i>(Может быть пустым)</i></li>
+    <li><b>Action</b> - рабочая часть скрипта. В него помещают те действия, которые будут выполняться, и результаты которых будут измеряться и сохраняться, а в последствии анализироваться. (Количество блоков Action может быть разным, в зависимости от архитектуры тестового скрипта)</li>
+    <li><b>End</b> - корректное завершение теста.<i>(Может быть пустым)</i></li>
+</ul>
+<a name="2.3"></a>
+<h3>2.3 Соглашение об именовании</h3>
+<p>Программируя на разных языках, мы используем правила наименования (объектов, переменных, функций) присущие данному языку. В качестве примера рекомендуем ознакомиться с таковыми правилами для Java <a href="load_scripts_writing.html#lit4">[4] (Ch. 3  Naming Conventions)</a></p>
+<p>В автоматизированном тестирование, а в частности в тестировании производительности, есть некоторые специфические сущности, которые необходимо подвести под единую систему наименований. Рассмотрим основные:</p>
+<ol>
+    <li>название скриптов</li>
+    <li>названия параметров</li>
+    <li>название транзакций</li>
+</ol>
+<p class="remark"><b>Примечание</b>: при написании скриптов для автоматизированного тестирования вам необходимо будет пользоваться правилами наименования как используемого языка программирования, так и правилами наименований дополнительных сущностей, выработанными в вашей команде. </p>
+<a name="2.3.1"></a>
+<h4>2.3.1 Названия тест скриптов</h4>
+<p>Для удобства работы с скриптами рекомендуется всем членам команды использовать одинаковый формат названий скриптов:</p>
+<ul>
+    <li>формат - начинается с названия тестируемого действия, затем компонента. Каждое слово начинается с большой буквы, без пробелов</li>
+    <li>символы - английский алфавит, цифры, подчеркивание</li>
+</ul>
+<p><b>Пример</b>: название скрипта по созданию компаний будет <i>AddCompaign</i>. Если компании надо создавать для заранее заданного количества пользователей (предположим - 100), то название будет следующим: <i>AddCompaign_100</i></p>
+<a name="2.3.2"></a>
+<h4>2.3.2 Названия параметров</h4>
+<p>Очень часто разные скрипты содержат одинаковые параметры. А если учесть, что параметры хранятся в файлах, то мы можем получить некоторое количество одинаковых файлов для нескольких VUser-ов. От этого можно и даже нужно избавляться, т.к. дублирование одинаковой информации не лучший паттерн.</p>
+<p>Условно разобьем параметры на 2 типа:</p>
+<ul>
+    <li><b>глобальные</b> - параметры, использующиеся в большом количестве скриптов внутри сценария, например: хост тестируемого приложения, параметры доступа к БД и т.д. Глобальные параметры хранятся в каталоге parameters проектной директории. В скрипте же, путь к файлу параметров зададим относительно папки скрипта, а именно: "<b>..\parameters\</b>"</li>
+    <li><b>локальные</b> - параметры конкретного тестового скрипта. Хранятся внутри директории каждого конкретного скрипта VUser-а.</li>
+</ul>
+<p>Названия параметрам рекомендуем давать с маленькой буквы, с возможным подчеркиванием как разделителем кейвордов.</p>
+<a name="2.3.3"></a>
+<h4>2.3.3 Название транзакций</h4>
+<p>Для измерения производительности, необходимо определить необходимые транзакции. Каждая транзакция измеряет время, необходимое для получения ответа сервера на запрос виртуального пользователя. Для удобства чтения рекомендуется транзакции называть с большой буквы, начинается с кейворда TX <a href="load_scripts_writing.html#lit5">[5]</a>, каждый последующий кейворд разделен подчеркиванием.</p>
+<p><b>Пример</b>: по аналогии с примером из пункта <a href="load_scripts_writing.html#2.3.1">2.3.1 Названия тест скриптов</a>, название транзакций будет TX_ADD_COMPAIGN и TX_ADD_COMPAIGN_100 соответственно.</p>
+<br/>
+<a name="3"></a>
+<h2>3. Порядок действий при разработке скриптов для тестирования производительности</h2>
+<p>Условно разобьем процесс разработки тестового набора на 3 фазы:</p>
+<ol>
+    <li>Подготовка</li>
+    <li>Создание и отладка</li>
+    <li>Хранение</li>
+</ol>
+<p>На каждой фазе перед разработчиком скриптов для тестирования будет стоять ряд задач, только после решения которых можно перейти к следующей стадии.</p>
+<p>Далее рассмотрим более подробное описание фаз разработки тестовых скриптов для нагрузочного тестирования.</p>
+<a name="3.1"></a>
+<h3>3.1 Подготовка</h3>
+<p>Задачи:</p>
+<ul>
+    <li>анализ тестовой модели нагрузки</li>
+    <li>анализ функциональной части скрипта, с целью понять, что тест должен делать и как</li>
+    <li>выбор варианта создания скрипта:
+        <ol>
+            <li>ручной, когда разработчик сам пишет функции, использующиеся в скрипте</li>
+            <li>автоматический, когда скрипт записывается специальным инструментом</li>
+            <li>комбинированный, когда скрипт сначала записывается, а потом параметризируется и усовершенствуется вручную</li>
+        </ol>
+    </li>
+</ul>
+<a name="3.2"></a>
+<h3>3.2 Создание и отладка</h3>
+<p>Задачи:</p>
+<ul>
+    <li>создание шаблона скрипта (под шаблоном подразумевается не параметризованный скрипт, без каких-либо проверок)</li>
+    <li>параметризация параметров скрипта</li>
+    <li>добавление проверок в скрипт</li>
+    <li>настройки параметров VUser-ов (скриптов) и окружения</li>
+    <li>отладка при 1 итерации</li>
+    <li>отладка при Х итерациях</li>
+    <li>добавление скрипта в общий сценарий</li>
+    <li>обновление глобальных параметров (при необходимости)</li>
+</ul>
+<a name="3.3"></a>
+<h3>3.3 Хранение</h3>
+<p>Задачи:</p>
+<ul>
+    <li>сохранение глобальных параметров - папка <b>\parameters\</b></li>
+    <li>сохранение сценариев- папка <b>\scenarios\</b></li>
+    <li>сохранение скриптов - папка <b>\scripts\</b></li>
+</ul>
+<p class="remark"><b>Примечание</b>: готовый тестовый набор должен быть доступен всем участникам проектной группы, для этого он должен быть сохранен в системе контроля версий (либо на совместно используемом сервере).</p>
+<p>При использовании SVN <a href="load_scripts_writing.html#lit6">[6]</a> в качестве системы контроля версий, рекомендуется воспользоваться общепринятой организацией репозитория <a href="load_scripts_writing.html#lit7">[7]</a>:</p>
+<p class="remark">        <b>/trunk</b>  - актуальная (последняя) версия тестового набора
+    <b>/branches</b> - тестовые наборы, находящиеся в разработке
+    <b>/tags</b> - завершенные тестовые наборы</p>
+<p class="remark"><b>Примечание</b>: Для получения более детальной и точной информации о системе контроля версий рекомендуется обратиться к команде разработчиков. По работе с репозиторием любой программист будет рад провести короткий мастер-класс для QA.</p>
+<p>В двух словах, порядок работы, используя репозиторий, будет следующий: создается новый <i>branch</i> для тестового набора, сохраняются в него новые тестовые скрипты или изменения, после завершения работы сливается (merge) все в <i>trunk</i>. Когда все участники команды залили результаты своей работы (скрипты, сценарии, параметры) в <i>trunk</i>, создается новый <i>tag</i>, как показатель завершенности некоторой версии тестового набора.</p>
+<p>В итоге, структура каталогов репозитория будет следующая:</p>
+<p class="remark">		<b>/perfSuite1</b>
+    <b>/trunk</b>
+    /parameters
+    /scenarios
+    /scripts
+    <b>/branches</b>
+    <b>/branch1</b>
+    /parameters
+    /scenarios
+    /scripts
+    <b>/branch2</b>
+    /parameters
+    /scenarios
+    /scripts
+    ...
+    <b>/tags</b>
+    <b>/v0.1</b>
+    /parameters
+    /scenarios
+    /scripts
+    <b>/v0.2</b>
+    /parameters
+    /scenarios
+    /scripts
+    ...
+    <b>/perfSuite2</b>
+    <b>/trunk</b>
+    ...
+    <b>/branches</b>
+    ...
+    <b>/tags</b>
+    ...    </p>
+<br/>
+<a name="4"></a>
+<h2>4. Конфигурация тестового набора для тестирования производительности</h2>
+<p><b>Тестовые наборы</b> или <b>сценарии тестирования</b> конфигурируются на основании имеющихся <a href="work_load_model.html">моделей нагрузки</a>. Для этого, хранящиеся в репозитории скрипты, группируют в сценарии и назначают требуемое количество виртуальных пользователей, для получения нужной нагрузки (<i>в <b>HP LoadRunner</b> для этих целей используется <b>Controller</b></i>). Полученные файлы с конфигурацией сценариев сохраняют, также как и скрипты, в репозитории - папка <b>\scenarios\</b>.</p>
+<p>Заметим, что <b>предусловием для конфигурации тестового набора</b> является подготовка необхдимых скриптов.</p>
+<p>Задача:</p>
+<ul>
+    <li>создание тестового набора (сценария) для нагрузочного тестирования</li>
+    <li>конфигурация тестового набора</li>
+    <li>отладка работы сценария</li>
+    <li>сохранение тестового набора в репозитории</li>
+</ul>
+<br/>
+<a name="5"></a>
+<h2>5. Вывод</h2>
+<p>Воспользовавшись, вышеуказанными рекомендациями по созданию тестового набора для нагрузочного тестирования, вы получите четкую, простую и понятную структуру тестовых скриптов, упростите себе задачу по написанию и поддержке их в рабочем состоянии, а также, используя общий репозиторий, вы получите доступ не только к готовым тестам, но и к тем, что находятся в разработке.</p>
+<br/>
+<a name="6"></a>
+<h2>6. Литература</h2>
+<a name="lit1"></a>
+<p>[1] HP LoadRunner software—tips and tricks for configuration, scripting and execution (<a target="_blank" href="https://www.sqa.its.state.nc.us/library/pdf/hp%20loadrunner%20best%20practices%20.pdf">https://www.sqa.its.state.nc.us/library/pdf/hp%20loadrunner%20best%20practices%20.pdf</a>)</p>
+<p>[2] Блог Алексея Булата “Про Тестинг” -  <a target="_blank" href="http://alexeybulat.blogspot.com/2007/12/loadrunner.html">стандартизируем нагрузочные тесты на LoadRunner</a></p>
+<p>[3] Блог Алексея Булата “Про Тестинг” - <a target="_blank" href="http://alexeybulat.blogspot.com/2007/12/blog-post_25.html">методика создания нагрузочных тест-скриптов</a></p>
+<a name="lit4"></a>
+<p>[4] Java Coding Style Guide (<a target="_blank" href="http://www.cs.bilgi.edu.tr/pages/standards_project/java_CodingStyle.pdf">http://www.cs.bilgi.edu.tr/pages/standards_project/java_CodingStyle.pdf</a>)</p>
+<a name="lit5"></a>
+<p>[5] tx=transaction (<a target="_blank" href="http://www.proz.com/kudoz/english_to_polish/finance_general/1859198-tx.html">http://www.proz.com/kudoz/english_to_polish/finance_general/1859198-tx.html</a>)</p>
+<a name="lit6"></a>
+<p>[6] Subversion - version control system (<a target="_blank" href="http://subversion.apache.org/">http://subversion.apache.org/</a>) </p>
+<a name="lit7"></a>
+<p>[7] Subversion - Branch Maintenance - Chapter 4. Branching and Merging - Repository Layout (<a target="_blank" href="http://svnbook.red-bean.com/en/1.1/ch04s07.html">http://svnbook.red-bean.com/en/1.1/ch04s07.html</a>)</p>
+<br/>
+<p><b>Автор</b>: Алексей Булат</p>
+<p><a target="_blank" href="http://alexeybulat.blogspot.com/2011/05/record-playback.html">Обсудить статью в блоге автора</a></p>
+<br/>
+<p class="linktop"><a href="load_scripts_writing.html#top" rel="external nofollow">Наверх</a></p>
+</div>
+<div class="enddiv">&nbsp;
+    <noindex>
+        <script>
+            function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+            pageLanguage: 'ru',
+            includedLanguages: 'be,en,fr,de,pl,ru,es,uk',
+            multilanguagePage: true,
+            gaTrack: true,
+            gaId: 'UA-4297293-3'
+            });
+            }
+        </script><script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-4297293-3']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+    </noindex>
+</div>
+</div>
+</div>
+<div id="footer">
+    <table border="0" cellpadding="0" cellspacing="0" align="center">
+        <tr>
+            <td align="left">
+                <table class="inner" border="0" cellpadding="0" cellspacing="0" align="left">
+                    <tr><td align="left"><b>ОБРАТНАЯ СВЯЗЬ:</b></td></tr>
+                    <tr><td align="left">&nbsp;</td></tr>
+                    <tr><td align="left"><a href="../../contact/contact.html">Задать вопрос</a></td></tr>
+                    <tr><td align="left"><a href="../../contact/contact.html">Сообщить об ошибке</a></td></tr>
+                    <tr><td align="left"><a href="../../contact/contact.html">Публикация материалов</a></td></tr>
+                    <tr><td align="left"><a href="../../contact/link.html">Обмен ссылками</a></td></tr>
+                </table>
+            </td>
+            <td align="center"><img src="../../img/protesting125x125_3.gif" alt="Про Тестинг: тесты, тестирование и тестировщики программного обеспечения" width="100" height="100"/>
+                <br/>
+                <noindex>
+                    <script type="text/javascript">
+                        var d = new Date();
+                        document.write("&copy; 2008-" + d.getFullYear());
+                    </script>
+                </noindex>
+                <a href="../../index.html">ProTesting.ru</a></td>
+            <td align="right">
+                <table class="inner" border="0" cellpadding="0" cellspacing="0" align="right">
+                    <tr><td align="right"><b>УСЛУГИ:</b></td></tr>
+                    <tr><td align="right">&nbsp;</td></tr>
+                    <tr><td align="right"><a href="../../service/documentation.html">Подготовка&nbsp;документации</a></td></tr>
+                    <tr><td align="right"><a href="../../service/testing.html">Тестирование&nbsp;ПО</a></td></tr>
+                    <tr><td align="right"><a href="../../service/consulting.html">Консалтинг</a></td></tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <p align="left">
+        <!--LiveInternet counter--><script type="text/javascript"><!--
+    document.write("<a href='http://www.liveinternet.ru/click' "+
+                   "target=_blank><img src='http://counter.yadro.ru/hit?t17.5;r"+
+                   escape(document.referrer)+((typeof(screen)=="undefined")?"":
+                                              ";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+                                                                                       screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+                   ";h"+escape(document.title.substring(0,80))+";"+Math.random()+
+                   "' alt='' title='LiveInternet: показано число просмотров за 24"+
+                   " часа, посетителей за 24 часа и за сегодня' "+
+                   "border=0 width=88 height=31 align=middle/><\/a>")//--></script><!--/LiveInternet-->
+    </p>
+    <!-- begin of Top100 logo -->
+    <a href="http://top100.rambler.ru/home?id=1902383" target="_blank"><img src="http://top100-images.rambler.ru/top100/banner-88x31-rambler-black2.gif" alt="Rambler's Top100" width="88" height="31" border="0" /></a>
+    <!-- end of Top100 logo -->
+</div>
+<!-- begin of Top100 code -->
+<script id="top100Counter" type="text/javascript" src="http://counter.rambler.ru/top100.jcn?1902383"></script><noscript><img src="http://counter.rambler.ru/top100.cnt?1902383" alt="" width="1" height="1" border="0"/></noscript>
+<!-- end of Top100 code -->
+</body>
+</html>

@@ -1,0 +1,523 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
+<head>
+    <title>Про Тестинг - Автоматизированное Тестирование - Java Test Runner</title>
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'/>
+    <meta content='java test runner automation xml suite result' name='Keywords'/>
+    <meta content='Short description of the JTR (java test runner) tool. Usage guide with small example and notes from developers.' name='Description'/>
+    <META content='all' name='robots'/>
+    <META content='General' name='rating'/>
+    <META content='GLOBAL' name='distribution'/>
+    <META content='Testing' name='Classification'/>
+    <META content='no-cache' http-equiv='Pragma'/>
+    <META content='1' http-equiv='Expires'/>
+    <META content='Alexey Bulat' name='author'/>
+    <meta name="verify-v1" content="nwLyVjttOGfRojFpAPHmfd1PBGuIk53xCahRkVSccxY=" />
+    <link rel="stylesheet" href="../../protesting.css" type="text/css" media="screen" />
+    <script language="JavaScript" src="../../js/bookmark.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        window.___gcfg = {
+        lang: 'ru-RU',
+        parsetags: 'onload'
+        };
+        (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+</head>
+<body>
+<div id="fb-root"></div>
+<div id="container">
+<div id="sitename">
+    <a name="top"></a>
+    <table border="0" width="100%">
+        <tr>
+            <td align="left" valign="top">
+                <a href="../../index.html" title="Про Тестинг"><img src="../../img/protesting_logo.png" alt="Про Тестинг: обеспечение качества, тестирование, автоматизация" border="0" /></a>
+            </td>
+            <td align="right" valign="middle">
+                <noindex>
+                    <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <ins class="adsbygoogle"
+                         style="display:inline-block;width:728px;height:90px"
+                         data-ad-client="pub-6596919741211198"
+                         data-ad-slot="6694292302"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </noindex>
+            </td>
+        </tr>
+    </table>
+</div>
+<div id="mainmenu">
+    <ul>
+        <li><a href="../../index.html">Главная</a></li>
+        <li><a href="../../qa/index.html">Обеспечение&nbsp;Качества</a></li>
+        <li><a href="../../testing/index.html">Тестирование</a></li>
+        <li><a class="current" href="../index.html">Автоматизация</a></li>
+        <li><a href="../../service/index.html">Сервис&nbsp;и&nbsp;Услуги</a>
+        <li><a href="../../contact/index.html">Контакт</a></li>
+        <li><a href="../../news/index.html">Новости</a></li>
+    </ul>
+</div>
+<div id="followme">
+    <ul>
+        <li><a rel="external nofollow" target="_blank" href="http://twitter.com/ProTesting_RU"><img src="../../img/icons/twitter_1.png" width="36" height="36" title="Следовать за нами в twitter"alt="Twitter" border="0"/></a></li>
+        <li><a rel="external nofollow" target="_blank" href="http://pro-testing.blogspot.com/feeds/posts/default"><img src="../../img/icons/rss_1.png" width="36" height="36" title="RSS Atom feed" alt="Atom" border="0"/></a></li>
+        <li><a rel="external nofollow" target="_blank" href="http://pro-testing.blogspot.com/"><img src="../../img/icons/blogger_1.png" width="36" height="36" title="Наш блог" alt="Blog" border="0"/></a></li>
+    </ul>
+    <g:plusone align="right"></g:plusone>
+    <div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+</div>
+<div id="wrap">
+<div id="leftside">
+    <h1>Автоматизация тестирования ПО</h1>
+    <p>
+        <a class="nav" href="../index.html">Основные понятия</a>
+        <a class="nav" href="../performance.html">Нагрузочное Тестирование</a>
+        <a class="nav" href="../functional.html">Автоматизация  функционального тестирования</a>
+    </p>
+    <p>
+        <a class="nav" href="index.html">Практикум</a>
+        <a class="nav sub" href="automation_from_scratch.html">Пишем систему автоматизации тестов "с нуля"</a>
+        <a class="nav sub" href="pageobject_pattern.html">PageObjects pattern</a>
+        <a class="nav sub" href="pageobject_selenium.html">PageObjects pattern + Selenium (Java)</a>
+        <a class="nav sub" href="static_resources.html">Работа со статическими ресурсами</a>
+        <a class="nav sub" href="work_load_model.html" title="Модель нагрузки, как отправная точка при тестировании производительности">Модель нагрузки, как отправная точка при тестировании...</a>
+        <a class="nav sub" href="test_stand_configuration.html" title="Конфигурация тестового стенда для нагрузочного тестирования">Конфигурация тестового стенда для нагрузочного тестирования</a>
+        <a class="nav sub active" href="javatestrunner.html" title="Java Test Runner">Запуск скриптов: Java Test Runner</a>
+        <a class="nav sub" href="atfwk.html" title="Automation Test Framework (ATFwk)">Automation Test Framework (ATFwk)</a>
+    </p>
+</div>
+<div id="rightside">
+    <noindex>
+        <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- Большой вертикаль - 160x600 -->
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:160px;height:600px"
+             data-ad-client="ca-pub-6596919741211198"
+             data-ad-slot="9317658806"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </noindex>
+</div>
+<div id="searchpanel">
+    <form action="http://www.protesting.ru/searchresult.html" id="cse-search-box">
+        <input type="hidden" name="cx" value="partner-pub-6596919741211198:2p1g8mczggq" />
+        <input type="hidden" name="cof" value="FORID:10" />
+        <input type="hidden" name="ie" value="UTF-8" />
+        <input class="searchbox" type="text" name="q" size="50" onblur="if (q.value == '') {q.style.background = '#FFFFFF url(http://www.protesting.ru/img/search-logo.PNG) left no-repeat';}" onfocus="q.style.background = '#ffffff'; "/>
+        <input class="searchbutton" type="submit" name="sa" value="&#x041f;&#x043e;&#x0438;&#x0441;&#x043a;" />
+    </form>
+</div>
+<div id="content">
+<div id="bookmark">
+    <div id="addBookmarkContainer"><a id="bookmarkLink">&nbsp;►&nbsp;в&nbsp;закладки&nbsp;&nbsp;</a></div>
+</div>
+<p class="broadcast">Раздел: <a href="../index.html">Автоматизация</a>&nbsp;&gt; <a href="index.html">Практикум</a>&nbsp;&gt; Java Test Runner</p>
+<h1>JTR - Java Test Runner</h1>
+<p>There is a link to download the latest version of the <a target="_blank" href="https://github.com/boltick/protesting/tree/master/javatr">JTR - Java Test Runner (Git Sources)</a></p>
+<p><b>Table of contents:</b></p>
+<ol style="margin-top: 0cm;" start="1" type="1">
+    <li><a href="javatestrunner.html#Test Automation with JTR">Test Automation with JTR</a></li>
+    <li><a href="javatestrunner.html#JTR Test Sample">JTR Test Sample</a>
+        <ul>
+            <li><a href="javatestrunner.html#Test data">Test data</a></li>
+            <li><a href="javatestrunner.html#Test Suite XML file">Test Suite XML file</a></li>
+            <li><a href="javatestrunner.html#Test Properties file">Test Properties file</a></li>
+            <li><a href="javatestrunner.html#Test Suite Java Class">Test Suite Java Class</a></li>
+            <li><a href="javatestrunner.html#JTR Method Annotations">JTR Method Annotations</a></li>
+            <li><a href="javatestrunner.html#JTR Test Results Handling">JTR Test Results Handling</a></li>
+        </ul>
+    </li>
+    <li><a href="javatestrunner.html#Run tests">Run tests</a></li>
+    <li><a href="javatestrunner.html#Test Results Analysis">Test Results Analysis</a></li>
+    <li><a href="javatestrunner.html#Reporting Server">Reporting Server Configuration</a></li>
+</ol>
+<p></p>
+<a name="Test Automation with JTR"></a><h2>Test Automation with JTR</h2>
+<p>JTR is an extremely flexible tool which can be used by automation test developers. First of all it uses
+    high-capacity script language - Java. The second is that it is very simple in using and configuration.
+    To start working with JTR you need just some experience in Java, knowledge of XML, comfortable IDE,
+    application under test and a big wish for test automation. </p>
+<p>From testing side you should have only the following:</p>
+<ul>
+    <li>Description of the test case or test scenario from a test case management system</li>
+    <li>Id of the test case</li>
+    <li>Additional test properties and attributes</li>
+</ul>
+<p>From technical side to start writing a new test using JTR you will need the following:</p>
+<ul>
+    <li>High level XML description of the test suite and test case</li>
+    <li>Attributes and properties described in java properties file</li>
+    <li>Java class inherited from AbstractSuite from JTR package <i>com.gramant.jtr</i></li>
+</ul>
+<p>Recommended directory structure:</p>
+<p class="code">
+/test-app
+   /config              - directory with environment properties, test suites (*.list) and test cases in xml format
+   /lib                 - directory with java libraries (jars)
+   /resources           - additional resources 
+   /results             - directory of test run results
+   /src                 - sources
+      test_intg.bat     - exdecutable
+
+</p>
+
+<a name="JTR Test Sample"></a><h2>JTR Test Sample</h2>
+<a name="Test data"></a><h3>Test data</h3>
+<p>Test case: Verify login to the system.</p>
+<p>Test Requirement: All authorized users are able to login to the system</p>
+<p>Test data:</p>
+<table border="1" cellpadding="3" cellspacing="0">
+    <tbody>
+    <tr>
+        <th>Site Url</th>
+        <th>Registered Test User/Password</th>
+        <th>Locked Test User/Password</th>
+    </tr>
+    <tr>
+        <td>http://demo.demosystemundertest.com/</td>
+        <td>
+            ADMIN/ADMIN<br/>
+            TESTER/TESTER<br/>
+        </td>
+        <td>bad / bad</td>
+    </tr>
+    <tr>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+    </tr>
+    </tbody>
+</table>
+<a name="Test Suite XML file"></a><h3>Test Suite XML file</h3>
+<p>From the description of the test data we will create a suite XML file for the JTR test case:</p>
+<pre class="code">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;suite name="Login" class="TestLoginSample"&gt;
+	&lt;test name="Verify registered user login" group="001" type="smoke"/&gt;
+	&lt;test name="Verify locked user login" group="002" type="functional"/&gt;
+	&lt;test name="Verify empty login" group="003" type="regression"/&gt;
+&lt;/suite>
+</pre>
+<p>If you are familiar with XML you will easily understand the structure of the JTR test suite.</p>
+<p>Suite Login is implemented in class TestLoginSample. It consists of 3 test cases: </p>
+<ol>
+    <li>Verify registered user login</li>
+    <li>Verify locked user login</li>
+    <li>Verify empty login</li>
+</ol>
+<p>Attribute "group" shows a relation between JTR test case and test case in Test Management system.</p>
+<a name="testtype"></a><p>Attribute "type" shows the type of test case: <b>smoke, functional or regression</b>. (see section
+    <a href="javatestrunner.html#Run tests">Run tests</a> for more details)</p>
+<a name="Test Properties file"></a><h3>Test Properties file</h3>
+<p>Create a test properties file (e.g. <b>test.properties</b>) in the 'config' directory of your test project and add test data in it. </p>
+<pre class="code">-------------
+#test site url
+site.url= http://demo.demosystemundertest.com/
+#registered users
+registered.user.login1 = ADMIN
+registered.user.password1 = ADMIN
+registered.user.login2 = TESTER
+registered.user.password2 = TESTER
+#locked user
+locked.user.login = bad
+locked.user.password = bad
+-------------
+</pre>
+<a name="Test Suite Java Class"></a><h3>Test Suite Java Class</h3>
+<p>Look at the following java implementation of the JTR test suite</p>
+<pre class="code">
+public class TestLoginSample extends AbstractSuite {
+    public TestLoginSample(Object o) {
+        super(o);
+    }
+    @DataGenerator(groups = {"001"})
+    public static List generateUsers() {
+        List&lt;User&gt; users = new ArrayList&lt;User&gt;();
+        users.add(new User(JTR.getProperty("registered.user.login1"), JTR.getProperty("registered.user.password1")));
+        users.add(new User(JTR.getProperty("registered.user.login2"), JTR.getProperty("registered.user.password2")));
+        return users;
+    }
+    @TestPrecondition(groups = {"001", "002", "003"})
+    public void openBrowser() {
+        /*
+        Code to open a web browser
+         */
+    }
+    @TestPostcondition(groups = {"001", "002", "003"})
+    public void closeBrowser() {
+        /*
+        Code to close a web browser
+         */
+    }
+    @Test(groups = {"001"}, firstMethod = true)
+    public TestResult testRegisteredUserLogin() throws IOException {
+        User user = (User) testObject;
+        /*
+        Code to login by Registered user
+         */
+        if (!login(user)) {
+            LOG.result("Registered user is not logged in");
+            return TestResult.FAILED;
+        }
+        return TestResult.PASSED;
+    }
+    @Test(groups = {"002"}, firstMethod = true)
+    public void testLockedUserLogin() {
+        User user = new User(JTR.getProperty("locked.user.login"), JTR.getProperty("locked.user.password"));
+        /*
+           Code to login by Locked user.
+         */
+        if (login(user)) {
+            LOG.assertFail("Locked User is logged in");
+        }
+        LOG.result("Locked User is NOT logged in");
+    }
+    @Test(groups = {"003"}, firstMethod = true)
+    public TestResult testEmptyUserLogin() {
+        User user = new User("", "");
+        /*
+        Code to login by Empty user
+         */
+        if (login(user)) {
+            LOG.errorResult("Empty user is logged in");
+            return TestResult.FAILED;
+        }
+        LOG.result("Empty user is not logged in");
+        return TestResult.PASSED;
+    }
+    private boolean login(User user) {
+        boolean isOk = true;
+        LOG.action("Login by " + user.toString());
+        /*
+         login with user and check that HomePage is opened
+         isOk = true; // if user is logged in
+         isOk = false; // if user is NOT logged in
+         */
+        return isOk;
+    }
+    private static class User {
+        String login;
+        String password;
+        private User(String login, String password) {
+            this.login = login;
+            this.password = password;
+        }
+        public String toString() {
+            return "User{" +
+                    "login='" + login + '\'' +
+                    ", password='" + password + '\'' +
+                    '}';
+        }
+    }
+}
+</pre>
+<a name="JTR Method Annotations"></a><h3>JTR Method Annotations</h3>
+<h4>Annotation @DataGenerator</h4>
+<p>The DataGenerator annotation describes the method responsible for generation of the test data.
+    This type of method will be useful if you need to execute the same test but with different test data.
+    In our case with different registered users. </p>
+<p>The major requirement is that DataGenerator method should return a <b>List</b> with test data objects
+    (in our case the List of Users). </p>
+<p>For calling the generated test data you will need to cast variable <b>testObject</b> to the type of
+    your test data. (in our case to the User): <i>User user = (User) testObject;</i></p>
+<h4>Annotation @TestPrecondition</h4>
+<p>The TestPrecondition annotation shows the method which will be executed in the beginning of the test.</p>
+<h4>Annotation @TestPostcondition</h4>
+<p>The TestPrecondition annotation shows the method which will be executed in the end of the test.</p>
+<h4>Annotation @Test</h4>
+<p>The TestPrecondition annotation shows the method implemented the test.</p>
+<p>The relation between @Test, @TestPrecondition, @TestPostcondition and @DataGenerator is done through the
+    groups array implemented in all these annotations. In our sample you can see that @DataGenerator is
+    implemented only for group "001", so before execution of the "001" test data will be generated. The
+    same is for @TestPrecondition and @TestPostcondition. You see that the same precondition will be executed
+    before tests "001", "002", "003" and the same post-condition after them.</p>
+<a name="JTR Test Results Handling"></a><h3>JTR Test Results Handling</h3>
+<p>These are 2 different ways to handle results of test execution:</p>
+<ol>
+    <li>Through the TestResult object</li>
+    <li>Through the logger mechanism</li>
+</ol>
+<p>As you see from the code example <i>@Test(groups = {"001"})</i> and  <i>@Test(groups = {"003"})</i>
+    return TestResult object. They implemented the first solution. In this case you will have to control
+    the result of test execution by yourself: <i>return TestResult.PASSED</i> or <i>return TestResult.FAILED</i> (option TestResult.SKIPPED is also possible if some test preconditions are not met)</p>
+<p>Test method <i>@Test(groups = {"002"})</i> implements the second option. It returns always void. It
+    means that if method has worked till the end test result will be PASSED by default. In case if
+    exception is thrown or <i>LOG.assertFailed()</i> is called result will be FAILED.</p>
+<p>You can choose and use any of them but we propose to use the second solution because it makes tests
+    more flexible and you will not have to return PASSED of FAILED result all the time.</p>
+<a name="Suites list file"></a><h2>Suites list file</h2>
+<p>To run your tests you have to create a simple text file with list of test suites to be run.</p>
+<p>If your have only one test suite 'login.xml' and it is saved in "config" directory of you project then your suites.list file will be the following:</p>
+<p>suites.list -- </p>
+<pre class="code">config/login.xml
+</pre>
+<p>If you have more than one test suite your 'suites.list' should contain a list of paths to test suites xml files (a record for each suite xml)</p>
+<p>suites.list -- </p>
+<pre class="code">config/login.xml
+config/add.xml
+config/delete.xml
+config/logout.xml
+</pre>
+<p><b>NOTE 1:</b>Path to the suite xml starts from the working directory of your test project</p>
+<p><b>NOTE 2:</b> To comment a suite xml in suites list file use character: <b>#</b></p>
+<a name="Run tests"></a><h2>Run tests</h2>
+<p>There are several command line options are used for running the JTR tests:</p>
+<ul>
+    <li>props - definition of the test properties file</li>
+    <li>suites - definition of the suites list</li>
+    <li>output - definition of the results output directory (if output parameter is not defined directory
+        "results" will be created by default)</li>
+    <li>testtype - definition of tests to be run by test type (if <a href="javatestrunner.html#testtype">test type</a> is not defined all tests defined
+        in suites list will be executed)</li>
+</ul>
+<p>And now we can run test using the following parameters :</p>
+<ul>
+<li>To run only smoke tests use the following (results will be saved in directory SmokeResults): <br/>
+<pre class="code">
+com.gramant.jtr.JTRun -props config/test.properties -suites config/suites.list -output SmokeResults -testtype smoke</pre>
+</li>
+<li>To run only regression tests use the following (results will be saved in directory RegressionResults):<br/>
+<pre class="code">
+com.gramant.jtr.JTRun -props config/test.properties -suites config/suites.list -output RegressionResults -testtype regression</pre>
+</li>
+<li>To run only functional tests use the following (results will be saved in directory FunctionalResults):<br/>
+<pre class="code">
+com.gramant.jtr.JTRun -props config/test.properties -suites config/suites.list -output FunctionalResults -testtype functional</pre>
+</li>
+<li>To run all tests use the following (results will be saved in the default directory results):<br/>
+<pre class="code">
+com.gramant.jtr.JTRun -props config/test.properties -suites config/suites.list</pre>
+</li>
+</ul>
+<p><b>NOTE:</b> If you use different from the default results directory you will have to change log4j.xml.
+    Set a new path to the test.log file.</p>
+<a name="Test Results Analysis"></a><h2>Test Results Analysis</h2>
+<p>JTR package contains two magic xsl file: run.xsl and suite.xsl. Copy them to the output directory of 
+    your test project. To see the test result you will have to open run.xml file in any web browser.</p>
+<a name="Reporting Server"></a><h2>Reporting Server Configuration</h2>
+<p>In order to use reporting server you have to fill in the following options in the test properties file:</p>
+<pre class="code">#####################
+## Reporting Server Options
+#####################
+# environment.type: TEST, PROD or etc.
+environment.type = TEST
+# application environment type: prod and demo // depends on application
+app.environment.type = demo
+# office name - usefull in case if you have multiple offices
+office.name = ProTesting
+# 1 - SFTP, 2 - FTP, 3 - FILE
+report.transfer.protocol=3
+# result xslt location
+# empty if your test results are in the same folder with xsl schema's
+# use local path to xsl if you are going to view reports locally
+# use http path to xsl if you are going to put results into https server
+xslt.path=
+test.run.index.file=run.xml
+test.run.log.file=test.log
+report.server.index.file=index.xml
+report.server=false
+# reporting server path
+report.server.path=C:\\reportSrv\\
+report.server.todo.path=C:\\reportSrv\\todo\\
+# settings for using secure FTP transfer
+#report.server.path=
+#report.server.todo.path=
+#report.server.host=
+#report.server.port=
+#report.server.user=
+#report.server.password=
+</pre>
+<br/>
+<br/>
+<br/>
+<p>Good luck in using JTR and have fun with test automation.</p>
+<br/>
+<p class="linktop"><a href="javatestrunner.html#top" rel="external nofollow">Наверх</a></p>
+</div>
+<div class="enddiv">&nbsp;
+    <noindex>
+        <script>
+            function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+            pageLanguage: 'ru',
+            includedLanguages: 'be,en,fr,de,pl,ru,es,uk',
+            multilanguagePage: true,
+            gaTrack: true,
+            gaId: 'UA-4297293-3'
+            });
+            }
+        </script><script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-4297293-3']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+    </noindex>
+</div>
+</div>
+</div>
+<div id="footer">
+    <table border="0" cellpadding="0" cellspacing="0" align="center">
+        <tr>
+            <td align="left">
+                <table class="inner" border="0" cellpadding="0" cellspacing="0" align="left">
+                    <tr><td align="left"><b>ОБРАТНАЯ СВЯЗЬ:</b></td></tr>
+                    <tr><td align="left">&nbsp;</td></tr>
+                    <tr><td align="left"><a href="../../contact/contact.html">Задать вопрос</a></td></tr>
+                    <tr><td align="left"><a href="../../contact/contact.html">Сообщить об ошибке</a></td></tr>
+                    <tr><td align="left"><a href="../../contact/contact.html">Публикация материалов</a></td></tr>
+                    <tr><td align="left"><a href="../../contact/link.html">Обмен ссылками</a></td></tr>
+                </table>
+            </td>
+            <td align="center"><img src="../../img/protesting125x125_3.gif" alt="Про Тестинг: тесты, тестирование и тестировщики программного обеспечения" width="100" height="100"/>
+                <br/>
+                <noindex>
+                    <script type="text/javascript">
+                        var d = new Date();
+                        document.write("&copy; 2008-" + d.getFullYear());
+                    </script>
+                </noindex>
+                <a href="../../index.html">ProTesting.ru</a></td>
+            <td align="right">
+                <table class="inner" border="0" cellpadding="0" cellspacing="0" align="right">
+                    <tr><td align="right"><b>УСЛУГИ:</b></td></tr>
+                    <tr><td align="right">&nbsp;</td></tr>
+                    <tr><td align="right"><a href="../../service/documentation.html">Подготовка&nbsp;документации</a></td></tr>
+                    <tr><td align="right"><a href="../../service/testing.html">Тестирование&nbsp;ПО</a></td></tr>
+                    <tr><td align="right"><a href="../../service/consulting.html">Консалтинг</a></td></tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <p align="left">
+        <!--LiveInternet counter--><script type="text/javascript"><!--
+    document.write("<a href='http://www.liveinternet.ru/click' "+
+                   "target=_blank><img src='http://counter.yadro.ru/hit?t17.5;r"+
+                   escape(document.referrer)+((typeof(screen)=="undefined")?"":
+                                              ";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+                                                                                       screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+                   ";h"+escape(document.title.substring(0,80))+";"+Math.random()+
+                   "' alt='' title='LiveInternet: показано число просмотров за 24"+
+                   " часа, посетителей за 24 часа и за сегодня' "+
+                   "border=0 width=88 height=31 align=middle/><\/a>")//--></script><!--/LiveInternet-->
+    </p>
+    <!-- begin of Top100 logo -->
+    <a href="http://top100.rambler.ru/home?id=1902383" target="_blank"><img src="http://top100-images.rambler.ru/top100/banner-88x31-rambler-black2.gif" alt="Rambler's Top100" width="88" height="31" border="0" /></a>
+    <!-- end of Top100 logo -->
+</div>
+<!-- begin of Top100 code -->
+<script id="top100Counter" type="text/javascript" src="http://counter.rambler.ru/top100.jcn?1902383"></script><noscript><img src="http://counter.rambler.ru/top100.cnt?1902383" alt="" width="1" height="1" border="0"/></noscript>
+<!-- end of Top100 code -->
+</body>
+</html>
